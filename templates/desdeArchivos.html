@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%include '/components/header.html' %}
+    <title>Elegir Archivos</title>
+  </head>
+  <body>
+  
+
+    {% include '/components/menu.html' %}
+
+    <div class="main-content">
+      <input type="hidden"  id="txtid12" value='{{session["id"]}}'>
+
+      <div class="container">
+      <div id="loader" class="loader" style="display: none;"></div>
+
+        <div class="titulo">
+          <span> <i class="bx bx-chevron-right"></i> </span>
+          <h2>Subir Arhivo</h2>
+        </div>
+
+        <input type="hidden" name="tamanio" id="tamanio" />
+        <input type="hidden" name="formato" id="formato" />
+        <div class="containerelegir">
+          <input
+            id="txtfile"
+            type="file"
+           
+          />
+        </div>
+        <div class="imgcontainer">
+          <img id="img1" src="/static/img/imagen_mejorada.png" alt="" />
+        </div>
+        <div class="elegircontainer">
+          <select name="txtidiomas" id="txtidiomas">
+            <option value="es">Espaniol</option>
+            <option value="en">Ingles</option>
+          </select>
+          <button type="button" id="IniciarTraduccion">Iniciar Scan</button>
+        </div>
+        <div class="imgcontainer">
+          <img id="imgEscaneada" src="/static/img/imagen_mejorada.png" alt="" />
+        </div>
+        <div class="imgcontainer">
+          <img id="imgTraducida" src="/static/img/imagenmarcada.png" alt="" />
+        </div>
+        <div class="tableResultados">
+          <div class="containerTexto">
+            <span>Texto</span>
+            <p id="texto">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo,
+              provident deserunt labore sunt repellat eaque culpa ipsam sed!
+              Iste facere laboriosam voluptate beatae amet odit hic tempora
+              sequi, minima aliquam!
+            </p>
+            <span>Traduccion</span>
+            <p id="traduccion">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
+              cumque animi laudantium sequi, culpa molestiae autem sunt
+              architecto odio velit consectetur aperiam. Obcaecati cum odit
+              numquam, debitis repellat laudantium iure.
+            </p>
+          </div>
+
+          <div class="tituloResultado">
+            <h5>Resultados</h5>
+            <h6 id="noPalabras">22 palabras</h6>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <td>No Palabra</td>
+                <td>Palabra</td>
+                <td>Traduccion</td>
+              </tr>
+            </thead>
+            <tbody id="pintar">
+              <tr>
+                <td>No Palabra</td>
+                <td>Palabra</td>
+                <td>Traduccion</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {%include '/components/footer.html' %}
+  </body>
+</html>

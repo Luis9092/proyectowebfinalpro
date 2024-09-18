@@ -1,0 +1,70 @@
+button:disabled {
+  background-color: #cccccc; /* Color de fondo cuando está desactivado */
+  color: #909090; /* Color del texto cuando está desactivado */
+  cursor: default; /* Cambia el cursor */
+  opacity: 0.4; /* Opacidad para dar un efecto de desactivado */
+}
+
+.containerelegir video {
+  width: 90%;
+  height: auto;
+  /* border: 1px solid var(--primaryColor); */
+}
+.containerelegir canvas {
+  display: none; /* Ocultar el canvas */
+}
+.containerelegir img {
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
+}
+
+.containerelegir .buttonsVideo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerelegir button {
+  width: 80%;
+  height: 50px;
+  background: linear-gradient(90deg, #77fdf2 0%, #06ffe2 46%, #a4ffe2 100%);
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  border-bottom: 4px solid #02b6a7;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+  text-align: left;
+  box-shadow: 0px 3px 0px 0px var(--boxshadow-color);
+  cursor: pointer;
+  margin: 0 auto;
+  padding-left: 10px;
+  margin: 16px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.containerelegir button:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 25px solid #00d1b2;
+  border-bottom: 25px solid #00d1b2;
+  border-left: 50px solid transparent;
+  border-right: 50px solid #00d1b2;
+  position: absolute;
+  opacity: 0.6;
+  right: 0;
+  top: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+@media (max-width: 500px) {
+  .containerelegir .buttonsVideo {
+    display: flex;
+    flex-direction: column;
+  }
+}
