@@ -1,25 +1,32 @@
 <button class="menu-toggle" id="menuToggle">
   <div class="div1"></div>
-  <h4 id="textoSaludo">Buenas Tarde, {{ session["nombres"] }}</h4>
-  <i id="togleicon"  class="bx bx-menu"></i>
+  <h3 id="txtSaludo"></h3>
+  <input type="hidden" id="txtnombress" value='{{ session["nombres"] }}' />
+
+  <i id="togleicon" class="bx bx-menu"></i>
 </button>
 
 <div class="sidebar" id="sidebar">
   <div class="perfilContainer">
-    <img src="/static/img/arb.png" alt="Perfil" class="profile-img" />
+    <a href="/miperfil">
+      <img
+        src='/static/imagenesusuariosPerfil/{{session["imgperfil01"]}}'
+        alt="Perfil"
+        class="profile-img"
+      />
+    </a>
+
     <label for="">{{session["nombres"] }}</label>
     <label for="">{{session["correo"]}}</label>
   </div>
 
   {{ session["menu"] | safe }}
 
-  <hr>
+  <hr />
   <div class="containerTogle">
     <input type="checkbox" id="switch-mode" hidden />
     <label for="switch-mode" class="switch-mode"></label>
   </div>
 
-  <button id="salir" name="salir">
-    <a href="/salir"><i class="bx bxl-android"></i> Salir</a>
-  </button>
+  <a t href="/salir" id="salir"><i class="bx bxl-android"></i> Salir</a>
 </div>

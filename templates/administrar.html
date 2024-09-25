@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {%include '/components/header.html' %}
+
+    <title>Tomar Foto</title>
+  </head>
+  <body>
+    {% include '/components/menu.html' %}
+
+    <div class="main-content">
+      <dialog id="dialogUser">
+        <div id="cancelaruser" class="btn_cancelar">
+          <i class="bx bx-x ex"></i>
+        </div>
+        <div class="containerdialog">
+          <div class="infoUser">
+            <div class="imgus">
+              <img src="/static/img/arb.png" alt="" />
+            </div>
+            <hr />
+
+            <div class="titlemodal">Datos Del Usuario</div>
+            <form action="/usuariosProcesos" method="post" id="formUseadm">
+              <input type="hidden" name="idus1" id="idus1" />
+              <div class="dataus">
+                <div class="inputs">
+                  <span>Nombres</span>
+                  <input
+                    type="text"
+                    placeholder="Nombre"
+                    id="txtnombresus"
+                    name="txtnombresus"
+                    disabled
+                  />
+                </div>
+                <div class="inputs">
+                  <span>Correo</span>
+                  <input
+                    type="text"
+                    placeholder="Correo"
+                    id="txtcorreous"
+                    name="txtcorreous"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="dataus">
+                <div class="inputs">
+                  <span>Estado</span>
+                  <input
+                    type="number"
+                    value="1"
+                    id="txtestado"
+                    name="txtestado"
+                    min="0"
+                    max="1"
+                  />
+                </div>
+                <div class="inputs">
+                  <span>fecha Creacion</span>
+                  <input
+                    type="text"
+                    placeholder="Fecha Creacion"
+                    id="txtfechaus"
+                    name="txtfechaus"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="dataus">
+                <div class="inputs">
+                  <span>Fecha Nacimiento</span>
+                  <input
+                    type="text"
+                    placeholder="Nombre"
+                    id="txtfechanus"
+                    name="txtfechanus"
+                    disabled
+                  />
+                </div>
+                <div class="inputs">
+                  <span>Edad</span>
+                  <input
+                    type="text"
+                    placeholder="Edad"
+                    name="txtedad"
+                    id="txtedad"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="botonesgroup">
+                <button
+                  type="button"
+                  class="btnActualizar"
+                  id="btnActualizarUser"
+                  name="btnActualizarUser"
+                  value="actualizar"
+                >
+                  Modificar
+                </button>
+                <button
+                  type="button"
+                  class="btnEliminar"
+                  id="btnEliminarus"
+                  name="btnEliminarus"
+                  value="eliminar"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- imagen -->
+          <div class="image-container">
+            <div class="logo"></div>
+            <br /><br />
+            <div class="image2">
+              <img src="/static/img/logo.png" />
+            </div>
+          </div>
+        </div>
+      </dialog>
+
+      <div class="container">
+        <div id="loader" class="loader" style="display: none"></div>
+
+        <div class="titulo">
+          <span> <i class="bx bx-chevrons-right"></i> </span>
+          <h2>Administrar Sistema</h2>
+        </div>
+
+        <ul class="box-info">
+          <li>
+            <i class="bx bxs-calendar-check"></i>
+            <span class="text">
+              <h3>{{ver.totalUsuarios}}</h3>
+              <p class="colorGreen">Usuarios</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-group"></i>
+            <span class="text">
+              <h3>{{ver.totalTraducciones}}</h3>
+              <p class="colorRed">Traducciones</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-dollar-circle"></i>
+            <span class="text">
+              <h3>{{ver.totalIdiomas}}</h3>
+              <p class="colorBlue">Idiomas Disponibles</p>
+            </span>
+          </li>
+        </ul>
+
+        <div class="tablePrincipal">
+          <div class="header"></div>
+          <table id="tableusuarios" class="display row-border">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th style="display: none">r</th>
+
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo Electronico</th>
+                <th>Foto</th>
+                <th>Estado</th>
+                <th>Fecha Creacion</th>
+                <th style="display: none">fn</th>
+                <th style="display: none">fn</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tb in data %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td style="display: none">{{tb.id}}</td>
+                <td>{{tb.nombres}}</td>
+                <td>{{tb.apellidos}}</td>
+                <td>{{tb.correo}}</td>
+                <td>
+                  <img
+                    class="imageUser"
+                    src="/static/imagenesusuariosPerfil/{{tb.imagen}}"
+                    alt="userImage"
+                  />
+                </td>
+                <td>{{tb.estado}}</td>
+                <td>{{tb.fechaCreacion}}</td>
+                <td style="display: none">{{tb.fechaNacimiento}}</td>
+                <td style="display: none">{{tb.imagen}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $("#tableusuarios").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+          },
+          scrollY: true,
+          scrollX: true,
+        });
+      });
+    </script>
+
+    {%include '/components/footer.html' %}
+  </body>
+</html>

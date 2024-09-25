@@ -5,62 +5,104 @@
     <title>Elegir Archivos</title>
   </head>
   <body>
-  
-
     {% include '/components/menu.html' %}
 
     <div class="main-content">
-      <input type="hidden"  id="txtid12" value='{{session["id"]}}'>
+      <input type="hidden" id="txtid12" value='{{session["id"]}}' />
+      <input type="hidden" id="emailuser" value='{{session["correo"]}}' />
 
       <div class="container">
-      <div id="loader" class="loader" style="display: none;"></div>
+        <div id="loader" class="loader" style="display: none"></div>
 
         <div class="titulo">
-          <span> <i class="bx bx-chevron-right"></i> </span>
+          <span> <i class="bx bx-chevrons-right"></i> </span>
           <h2>Subir Arhivo</h2>
         </div>
 
         <input type="hidden" name="tamanio" id="tamanio" />
         <input type="hidden" name="formato" id="formato" />
         <div class="containerelegir">
-          <input
-            id="txtfile"
-            type="file"
-           
-          />
+          <input id="txtfile" type="file" />
         </div>
         <div class="imgcontainer">
           <img id="img1" src="/static/img/imagen_mejorada.png" alt="" />
         </div>
         <div class="elegircontainer">
-          <select name="txtidiomas" id="txtidiomas">
-            <option value="es">Espaniol</option>
-            <option value="en">Ingles</option>
-          </select>
+          <select name="txtidiomas" id="txtidiomas"></select>
           <button type="button" id="IniciarTraduccion">Iniciar Scan</button>
         </div>
         <div class="imgcontainer">
-          <img id="imgEscaneada" src="/static/img/imagen_mejorada.png" alt="" />
+          <img
+            id="imgEscaneada"
+            src="/static/img/imagen_mejorada.png"
+            alt="Imagen Escaneada"
+            crossorigin="anonymous"
+          />
+          <div class="detailImage">
+            <span>Imagen Escaneada </span>
+            <i
+              class="bx bxs-save bx-spin bx-flip-horizontal"
+              title="Guardar"
+              id="guardarImagen"
+            ></i>
+            <i
+              class="bx bxs-share-alt bx-tada bx-flip-vertical"
+              title="Compartir"
+            ></i>
+            <i
+              class="bx bxs-cloud-download bx-tada bx-flip-horizontal"
+              title="Descargar"
+              id="descargarImagenAr"
+            ></i>
+          </div>
         </div>
         <div class="imgcontainer">
-          <img id="imgTraducida" src="/static/img/imagenmarcada.png" alt="" />
+          <img
+            id="imgTraducida"
+            src="/static/img/imagenmarcada.png"
+            alt="Imagen Traducida"
+            crossorigin="anonymous"
+
+          />
+          <div class="detailImage">
+            <span>Imagen Traducida </span>
+            <i
+              class="bx bxs-save bx-spin bx-flip-horizontal"
+              title="Guardar"
+              id="guardarImagenTraducida"
+            ></i>
+            <i
+              class="bx bxs-share-alt bx-tada bx-flip-vertical"
+              title="Compartir"
+            ></i>
+            <i
+              class="bx bxs-cloud-download bx-tada bx-flip-horizontal"
+              title="Descargar"
+              id="descargarImagenTraducida1"
+            ></i>
+          </div>
         </div>
         <div class="tableResultados">
           <div class="containerTexto">
             <span>Texto</span>
             <p id="texto">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo,
-              provident deserunt labore sunt repellat eaque culpa ipsam sed!
-              Iste facere laboriosam voluptate beatae amet odit hic tempora
-              sequi, minima aliquam!
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              nisi, corporis sed cumque, exercitationem, unde fuga totam earum
+              quo voluptatum quos incidunt asperiores eius temporibus facere
+              sunt esse nobis. Consectetur?
             </p>
             <span>Traduccion</span>
             <p id="traduccion">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
-              cumque animi laudantium sequi, culpa molestiae autem sunt
-              architecto odio velit consectetur aperiam. Obcaecati cum odit
-              numquam, debitis repellat laudantium iure.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+              veritatis magnam distinctio minima porro dolore omnis! Dolores
+              dignissimos quibusdam dicta nisi sapiente cupiditate cumque
+              minima, voluptates labore! Itaque, voluptatum vel?
             </p>
+            <div class="guardar">
+              <span>Descargar Como</span>
+              <i class='bx bxs-file-pdf bx-spin' title="pdf" id="pdfdescargar"></i>
+              <i class='bx bxs-file-txt bx-spin' title="Txt" id="descargartxt1"></i>
+            </div>
           </div>
 
           <div class="tituloResultado">
@@ -75,17 +117,30 @@
                 <td>Traduccion</td>
               </tr>
             </thead>
-            <tbody id="pintar">
-              <tr>
-                <td>No Palabra</td>
-                <td>Palabra</td>
-                <td>Traduccion</td>
-              </tr>
-            </tbody>
+            <tbody id="pintar"></tbody>
           </table>
         </div>
       </div>
     </div>
+
+    <script>
+      const txtidiomas12 = document.querySelector("#txtidiomas");
+      SelectDynamic(
+        txtidiomas12,
+        "http://127.0.0.1:8000/verIdiomas",
+        "abreviacion",
+        "nombreIdioma"
+      );
+
+      function SelectDynamic(input, url, id, valor) {
+        axios.get(url, {}).then(function (response) {
+          Object.entries(response.data).forEach(([key, value]) => {
+            input.innerHTML +=
+              "<option value='" + value[id] + "'>" + value[valor] + "</option>";
+          });
+        });
+      }
+    </script>
     {%include '/components/footer.html' %}
   </body>
 </html>

@@ -424,6 +424,8 @@ input {
 @media (max-width: 570px) {
   .registrarse {
     padding: 4rem 0;
+    margin-top: 5rem;
+
   }
 
   .image {

@@ -1,22 +1,26 @@
 :root {
-  --bg-color: #f0f0f0;
+  --bg-color: #f1f1f1;
   --text-color: #000000;
   --sidebar-bg: #ffffff;
-  --hover-color: #e0e0e0;
-  --primaryColor: #00dfdf;
+  --hover-color: #efefef;
+  --primaryColor: #35E3DE;
   --morado-color: #be1fdb;
   --celeste-color: #29caff;
   --rojizo-color: #ff0055;
   --verde-color: #00ffa6;
   --boxshadow-color: #d0d0d0;
+  --text-shadow: 0 2px 2px #bcbcbc;
+  --input-borderColor: #cecece;
 }
 
 .dark {
-  --bg-color: #2b3539;
+  --bg-color: #303b40;
   --text-color: #ffffff;
   --sidebar-bg: #212c2e;
-  --hover-color: #444;
+  --hover-color: #606060;
   --boxshadow-color: #000000;
+  --text-shadow: 0 2px 2px black;
+  --input-borderColor: #5b5b5b;
 }
 
 * {
@@ -46,11 +50,12 @@ a {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 5px var(--boxshadow-color);
+  border-right: 1px solid var(--bg-color);
   transition: left 0.3s ease-in-out, background-color 0.3s;
   z-index: 1000;
   overflow-y: auto;
   font-family: "Roboto", sans-serif;
+  box-shadow: 0 2px 6px var(--boxshadow-color);
 }
 
 .sidebar.open {
@@ -70,7 +75,7 @@ a {
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  border: 3px solid var(--primaryColor);
+  border: 4px solid var(--primaryColor);
 }
 
 .perfilContainer label:nth-child(2) {
@@ -107,6 +112,7 @@ a {
   padding: 4px;
   border-radius: 4px;
   margin-right: 6px;
+  box-shadow: var(--text-shadow);
 }
 
 .menu-item:hover {
@@ -204,8 +210,11 @@ a {
   transition: 0.4s;
   border-radius: 50%;
 }
+
 hr {
   margin: 1rem 0;
+  color: var(--hover-color);
+  background-color: var(--hover-color);
 }
 
 input:checked + .slider {
@@ -256,15 +265,6 @@ input:checked + .slider:before {
   font-family: "Arial", sans-serif;
 }
 
-.sidebar.open + .main-content {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-/* .sidebar.open + .main-content {
-  margin-left: 250px;
-} */
-
 /* togle container */
 .containerTogle {
   display: flex;
@@ -298,4 +298,92 @@ input:checked + .slider:before {
 
 .containerTogle #switch-mode:checked + .switch-mode::before {
   left: calc(100% - (25px - 4px) - 2px);
+}
+.contenedordata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* para page usuario perfil */
+.contenedordata p {
+  font-size: 1.4rem;
+}
+.contenedordata .contenedorImageperfil {
+  width: 60%;
+  background-color: var(--bg-color);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px var(--boxshadow-color);
+  border: 1px solid var(--sidebar-bg);
+  margin: 1.2rem;
+}
+
+.contenedordata .contenedorImageperfil img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.btnfinal {
+  width: 80%;
+  padding: 1rem;
+  background: linear-gradient(90deg, #77fdf2 0%, #06ffe2 46%, #a4ffe2 100%);
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  border-bottom: 4px solid #02b6a7;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  margin: 16px 0;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  align-items: center;
+}
+
+.btnfinal:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 1.4rem solid #00d1b2;
+  border-bottom: 2rem solid #00d1b2;
+  border-left: 5rem solid transparent;
+  border-right: 5rem solid #00d1b2;
+  position: absolute;
+  opacity: 0.6;
+  right: 0;
+  top: 0;
+  border-radius: 0 5px 5px 0;
+}
+.estiloformulario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.swal2-container.swal2-top-end > .swal2-popup,
+.swal2-container.swal2-top-right > .swal2-popup,
+.swal2-container.swal2-center > .swal2-popup {
+  background-color: var(--bg-color) !important;
+  box-shadow: 0 3px 5px var(--boxshadow-color);
+  border: 1px solid var(--hover-color);
+}
+.swal2-html-container,
+.swal2-title {
+  color: var(--text-color) !important;
+}
+.swal2-icon.swal2-success {
+  color: var(--primaryColor) !important;
+  border-color: var(--primaryColor) !important;
+}
+@media (max-width: 500px) {
+  .contenedordata p {
+    font-size: 0.9rem;
+  }
+  .contenedordata .contenedorImageperfil {
+    width: 96%;
+  }
 }

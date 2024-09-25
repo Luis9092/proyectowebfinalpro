@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {%include '/components/header.html' %}
+    <title>Acerca De</title>
+  </head>
+  <body>
+    {% include '/components/menu.html' %}
+    <div class="swiper_inicio">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide slide1">
+          <div class="text_slide">
+            <h2 class="swipe_title">
+              "De imagen a idioma: la traducción simplificada."
+            </h2>
+          </div>
+        </div>
+        <div class="swiper-slide slide2">
+          <div class="text_slide">
+            <h2 class="swipe_title">
+              "Transforma imágenes en palabras: traduce fácil."
+            </h2>
+          </div>
+        </div>
+        <div class="swiper-slide slide3">
+          <div class="text_slide">
+            <h2 class="swipe_title">
+              "Escanea, traduce y comprende al instante."
+            </h2>
+          </div>
+        </div>
+        <div class="swiper-slide slide4">
+          <div class="text_slide">
+            <h2 class="swipe_title">"Captura texto, traduce sin esfuerzo."</h2>
+          </div>
+        </div>
+      </div>
+      <svg>
+        <filter id="fire">
+          <feTurbulence
+            id="turbulence"
+            baseFrequency="0.1 0.1"
+            numOctaves="2"
+            seed="2"
+          >
+            <animate attributeName="baseFrecuency" dur="4s"></animate>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" scale="1"></feDisplacementMap>
+        </filter>
+      </svg>
+    </div>
+
+    <div class="main-contentInicio">
+      <div class="container">
+        <h2>¡Bienvenido a Genesis!</h2>
+        <p>Version 1.1.0</p>
+        <img src="/static/img/wel1.svg" alt="home" />
+        <h2>¡Comienza tu viaje de traducción ahora!</h2>
+      </div>
+    </div>
+
+    {% include '/components/footer.html' %}
+  </body>
+</html>

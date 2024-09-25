@@ -18,34 +18,35 @@ function validarArchivoImagen(archivo) {
 }
 
 // PRIMER PASO VALIDAR LAS ENTRADAS DE ARCHIVOS
-const inputArchivo = document.querySelector('input[type="file"]');
+const inputArchivo = document.querySelector('#txtfile');
 
 let iniciador = false;
 let NombresEliminar = [];
-if(inputArchivo){
-inputArchivo.addEventListener('change', function () {
-    const archivo = this.files[0];
-    if (archivo) {
-        if (validarArchivoImagen(archivo)) {
-            const fileReader = new FileReader();
-            name = archivo.name;
+if (inputArchivo) {
+    inputArchivo.addEventListener('change', function () {
+        const archivo = this.files[0];
+        if (archivo) {
+            if (validarArchivoImagen(archivo)) {
+                const fileReader = new FileReader();
+                name = archivo.name;
 
-            fileReader.onload = function (event) {
-                img1.src = event.target.result;
-                alertModal("#00dfdf", "Imagen Agregada correctamente!!", "success",)
-            };
+                fileReader.onload = function (event) {
+                    img1.src = event.target.result;
+                    alertModal("#00dfdf", "Imagen Agregada correctamente!!", "success",)
+                };
 
-            fileReader.readAsDataURL(archivo);
-            iniciador = true
-        } else {
-            alertModal("#ff0055", "El archivo no es válido. Debe ser JPG, PNG o JPEG.", "error",)
-            iniciador = false;
+                fileReader.readAsDataURL(archivo);
+                iniciador = true
+            } else {
+                alertModal("#ff0055", "El archivo no es válido. Debe ser JPG, PNG o JPEG.", "error",)
+                iniciador = false;
+            }
         }
-    }
-});
+    });
 }
 
 const IniciarTraduccion = document.querySelector("#IniciarTraduccion");
+let nombreArreglado = ""
 
 //BOTON PRINCIPAL PARA PODER INICIAR CON EL SCAN
 if (IniciarTraduccion) {
@@ -55,6 +56,7 @@ if (IniciarTraduccion) {
             let agregado = hora();
             let nombre = name.replace(/\s+/g, '');
             let nuevoNombre = agregado.toString() + nombre;
+            nombreArreglado = nuevoNombre;
             initTodo(nuevoNombre);
             NombresEliminar.push(nuevoNombre);
         }
@@ -62,7 +64,7 @@ if (IniciarTraduccion) {
     });
 }
 
-
+let descargarValores = 0;
 
 async function initTodo(nuevoNombre) {
 
@@ -83,6 +85,7 @@ async function initTodo(nuevoNombre) {
                 if (retornoFin == 1) {
                     imgEscaneada.src = "http://127.0.0.1:8000/fileEscaneado/" + nuevoNombre;
                     imgTraducida.src = "http://127.0.0.1:8000/fileTraducido/" + nuevoNombre;
+                    descargarValores = 1;
                 }
             }
         }
@@ -90,7 +93,6 @@ async function initTodo(nuevoNombre) {
 
 
 }
-
 
 
 async function uploadImage(nuevoNombre) {
@@ -220,7 +222,6 @@ function extraerInfoImagen(file) {
                 formato: formato
             });
         };
-
         img.onerror = function () {
             reject(new Error('No se pudo cargar la imagen.'));
         };
@@ -247,6 +248,9 @@ if (txtfile) {
     });
 }
 
+let idImagen = "";
+let idiomaOrigen = ""
+let idiomaTraduccion = "";
 
 
 async function TraerData() {
@@ -257,6 +261,10 @@ async function TraerData() {
         console.log("textoTraducidondata ", response.data.traduccionpalabras);
 
         verresultado(response.data.textoextraido, response.data.textotraducido, response.data.palabras, response.data.traduccionpalabras, response.data.nopalabras);
+        idImagen = response.data.idimagen;
+        idiomaOrigen = response.data.idiomaorigen;
+        idiomaTraduccion = response.data.idiomatraduccion;
+
         retorno = 1;
     } catch (e) {
         console.log(e);
@@ -324,9 +332,8 @@ function alertModal(color, mensaje, icon) {
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 4000,
         iconColor: color,
-
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -349,5 +356,255 @@ window.addEventListener('beforeunload', function (event) {
             eliminarRecurso(url);
         });
     }
-
 });
+const descargarImagenAr = document.querySelector("#descargarImagenAr");
+
+if (descargarImagenAr) {
+    descargarImagenAr.addEventListener("click", () => {
+        if (descargarValores == 1) {
+            const url = `http://127.0.0.1:8000/descargarImagenEscaneado/${nombreArreglado}`;
+            const retorno = descargarImagenMarcada(url, nombreArreglado);
+            if (retorno == 1) {
+                alertModal("#00dfdf", "Imagen Descargada Correctamente!!", "success",);
+            }
+        }
+    });
+}
+
+const descargarImagenTraducida1 = document.querySelector("#descargarImagenTraducida1");
+if (descargarImagenTraducida1) {
+    descargarImagenTraducida1.addEventListener("click", () => {
+        if (descargarValores == 1) {
+            const url = `http://127.0.0.1:8000/descargarImagenTraducido/${nombreArreglado}`;
+            const retorno = descargarImagenMarcada(url, nombreArreglado);
+            if (retorno == 1) {
+                alertModal("#00dfdf", "Imagen Descargada Correctamente!!", "success",);
+            }
+        }
+    });
+}
+
+async function descargarImagenMarcada(casa123, nameFile) {
+
+    try {
+        const url2 = casa123;
+        const response = await fetch(url2);
+
+        // Verificamos si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error('Error al descargar la imagen');
+        }
+
+        // Obtenemos el blob de la imagen
+        const blob = await response.blob();
+
+        // Creamos un enlace para descargar la imagen
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = nameFile;
+        link.click();
+
+        // Liberamos el objeto URL
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error:', error);
+        // Aquí puedes mostrar un mensaje de error al usuario
+    }
+}
+
+const guardarImagen = document.querySelector("#guardarImagen");
+if (guardarImagen) {
+    guardarImagen.addEventListener("click", () => {
+        if (descargarValores == 1) {
+            const imagen = document.querySelector("#imgEscaneada");
+            convertirImagenABlob(imagen);
+        }
+    });
+}
+const guardarImagenTraducida = document.querySelector("#guardarImagenTraducida");
+
+if (guardarImagenTraducida) {
+    guardarImagenTraducida.addEventListener("click", () => {
+        if (descargarValores == 1) {
+            const imgTraducida = document.querySelector("#imgTraducida");
+            convertirImagenABlob(imgTraducida);
+        }
+    });
+
+}
+
+function convertirImagenABlob(imgElement) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = imgElement.naturalWidth; // Usa naturalWidth para el tamaño original
+    canvas.height = imgElement.naturalHeight;
+    ctx.drawImage(imgElement, 0, 0);
+
+    canvas.toBlob(function (blob) {
+        enviarImagenAFlask(blob);
+    }, "image/png"); // Puedes cambiar el tipo de MIME según sea necesario
+}
+
+function enviarImagenAFlask(blob) {
+    const formData = new FormData();
+    formData.append("imagen", blob, nombreArreglado); // Puedes cambiar el nombre del archivo
+    formData.append("idImagen", idImagen)
+    fetch("/subir_imagen", {
+        method: "POST",
+        body: formData,
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+
+            console.log(data.estado);
+            if (data.estado == 1) {
+                alertModal("#00dfdf", "Imagen Guardada correctamente al servidor", "success",)
+            } else {
+                alertModal("#ff0055", "Al parece hubo un fallo al subir la imagen", "error",)
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+}
+
+const pdfdescargar = document.querySelector("#pdfdescargar");
+
+if (pdfdescargar) {
+    pdfdescargar.addEventListener("click", () => {
+        const text = texto.textContent;
+        const tra = traduccion.textContent;
+        const id = txtid12.value;
+        const email = document.querySelector("#emailuser").value;
+        const idimagen = idImagen;
+        const nombre = hora();
+        const origenIdioma = idiomaOrigen;
+        const traduccionIdioma = idiomaTraduccion;
+        const tipoArchivo = "pdf";
+        let nameFinal = nombre.toString() + "resultadosTraduccion.pdf";
+        crearArchivodoc(id, email, text, tra, idimagen, nameFinal, origenIdioma, traduccionIdioma, tipoArchivo);
+    });
+}
+
+const descargartxt1 = document.querySelector("#descargartxt1");
+
+if (descargartxt1) {
+    descargartxt1.addEventListener("click", () => {
+        const text = texto.textContent;
+        const tra = traduccion.textContent;
+        const id = txtid12.value;
+        const email = document.querySelector("#emailuser").value;
+        const idimagen = idImagen;
+        const nombre = hora();
+        const origenIdioma = idiomaOrigen;
+        const traduccionIdioma = idiomaTraduccion;
+        const tipoArchivo = "txt";
+        let nameFinal = nombre.toString() + "resultadosTraduccion.txt";
+        crearArchivodoc(id, email, text, tra, idimagen, nameFinal, origenIdioma, traduccionIdioma, tipoArchivo);
+    });
+}
+
+async function crearArchivodoc(id, email, text, tra, idimagen, nameFinal, origen, traduccion, tipoArchivo) {
+    const retorno = await EnviarTextoparaPdf(id, email, text, tra, idimagen, nameFinal, origen, traduccion, tipoArchivo);
+    if (retorno == 1) {
+        const retorno2 = await descargarArchivo1(nameFinal);
+        if (retorno2 == 1) {
+            alertModal("#00dfdf", "Descargando archivo", "success");
+            const link = "http://127.0.0.1:8000/eliminararchivos/" + nameFinal;
+            eliminarRecurso(link);
+        } else {
+            alertModal("#ff0055", "Error al descargar el archivo.", "error",)
+        }
+    }
+}
+
+
+async function EnviarTextoparaPdf(id, correo, text, tra, idimagen, nombre, origen, traduccion, tipoArchivo) {
+    retorno = 0;
+    try {
+        const response = await axios.post("http://127.0.0.1:8000/creararchivo", {
+            idresultado: String(id),
+            idImagenResultado: String(idimagen),
+            texto: String(text),
+            traduccion: String(tra),
+            correo: String(correo),
+            nombre: String(nombre),
+            idiomaOrigen: String(origen),
+            idiomaTraduccion: String(traduccion),
+            tipoArchivo: String(tipoArchivo)
+        });
+        // 
+        retorno = 1;
+    } catch (error) {
+        console.error("Error al traducir la imagen:", error);
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+async function descargarArchivo1(nameFile) {
+    try {
+        // Construimos la URL completa del endpoint
+        const url2 = `http://127.0.0.1:8000/descargararchivo/${nameFile}`;
+        // Realizamos la petición fetch
+        const response = await fetch(url2);
+
+        // Verificamos si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error('Error al descargar la imagen');
+        }
+
+        // Obtenemos el blob de la imagen
+        const blob = await response.blob();
+
+        // Creamos un enlace para descargar la imagen
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = nameFile;
+        link.click();
+
+        // Liberamos el objeto URL
+        window.URL.revokeObjectURL(url);
+        return 1;
+    } catch (error) {
+        console.error('Error:', error);
+        return 0;
+    }
+}
+
+function obtenerHoraActual() {
+    let fecha = new Date();
+    let horas = fecha.getHours();
+    return horas;
+}
+
+function SaludoUsuario(nombre) {
+    let hora = obtenerHoraActual();
+    let cadena = "";
+
+    if (hora < 12) {
+        cadena = "Buenos Dias!! " + nombre;
+    }
+    if (hora > 12 && hora <= 18) {
+        cadena = "Buenas Tardes!! " + nombre;
+    }
+
+    if (hora > 18 && hora < 24) {
+        cadena = "Buenas Noches!! " + nombre;
+    }
+
+    document.querySelector("#txtSaludo").textContent = cadena;
+}
+window.onload = function () {
+    const txtnombress = document.querySelector("#txtnombress").value;
+    SaludoUsuario(txtnombress);
+}

@@ -1,0 +1,230 @@
+.imageUser {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#dialogUser {
+  background-color: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  width: 80%;
+  /* margin-top: 0.6rem; */
+}
+
+.btn_cancelar {
+  position: absolute;
+
+  border-radius: 10px;
+  margin-top: -10px;
+  border: none;
+  font-weight: 600;
+
+  top: 16px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.btn_cancelar .ex {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--uno);
+  font-size: 28px;
+  background-color: var(--bg-color);
+  box-shadow: var(--text-shadow);
+}
+.btn_cancelar .ex:hover {
+  color: var(--primaryColor);
+}
+
+.containerdialog {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sidebar-bg);
+  border-radius: 8px;
+}
+
+.infoUser {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid var(--input-borderColor);
+  padding: 2rem 1rem;
+}
+
+.containerdialog .imgus {
+  width: 40%;
+  background-color: var(--sidebar-bg);
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: var(--text-shadow);
+  border: 1px var(--bg-color);
+}
+.containerdialog .infoUser img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.containerdialog .dataus {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: start;
+  gap: 0 12px;
+}
+
+.containerdialog .dataus .inputs {
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  margin: 0.6rem 0;
+  gap: 0 12px;
+}
+.containerdialog .dataus .inputs span {
+  font-weight: 500;
+  margin-left: 6px;
+  color: var(--text-color);
+}
+.titlemodal {
+  font-weight: bold;
+  color: var(--text-color);
+  text-shadow: var(--text-shadow);
+}
+hr {
+  width: 100%;
+  color: var(--input-borderColor);
+  background-color: var(--input-borderColor);
+}
+
+.containerdialog .dataus .inputs input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  margin-top: 6px;
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  border: 1px solid var(--input-borderColor);
+}
+.image-container {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container .image2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container .image2 img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+/* PARA LA VISTA DE PRIMERO */
+
+.box-info {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 24px;
+  margin-top: 36px;
+}
+
+.box-info li {
+  padding: 24px;
+  background: var(--light);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  grid-gap: 24px;
+  box-shadow: 0 1px 2px var(--boxshadow-color);
+  border: 1px solid var(--bg-color);
+}
+
+.box-info li .bx {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--text-shadow);
+}
+
+.colorGreen {
+  color: var(--celeste-color);
+  text-shadow: var(--text-shadow);
+}
+.colorRed {
+  color: var(--morado-color);
+  text-shadow: var(--text-shadow);
+}
+.colorBlue {
+  color: var(--verde-color);
+  text-shadow: var(--text-shadow);
+}
+
+.box-info li:nth-child(1) .bx {
+  background: var(--celeste-color);
+}
+
+.box-info li:nth-child(2) .bx {
+  background: var(--morado-color);
+}
+
+.box-info li:nth-child(3) .bx {
+  background: var(--verde-color);
+}
+
+.box-info li .text h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-shadow: var(--text-shadow);
+}
+
+.box-info i {
+  color: var(--text-color);
+}
+
+@media (max-width: 500px) {
+  .image-container {
+    display: none;
+  }
+
+  #dialogUser {
+    width: 98%;
+  }
+  .infoUser {
+    width: 100%;
+  }
+
+  .containerdialog .dataus {
+    display: flex;
+    flex-direction: column;
+  }
+}

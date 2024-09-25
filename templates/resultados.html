@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {%include '/components/header.html' %}
+
+    <title>Resultados</title>
+  </head>
+  <body>
+    {% include '/components/menu.html' %}
+
+    <div class="main-content">
+      <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
+
+      <div class="container">
+        <div id="loader" class="loader" style="display: none"></div>
+
+        <div class="titulo">
+          <span><i class="bx bx-chevrons-right"></i> </span>
+          <h2>Resultados</h2>
+        </div>
+        <div class="gridresultado" id="gridresultado">
+          {% for tb in tablare %}
+          <div class="foto">
+            <form
+              action="/eliminarResultadosUser"
+              id="{{tb.idresultado}}"
+              method="post"
+            >
+              <input
+                type="hidden"
+                name="nombreArchivo"
+                id="nombreArchivo"
+                value="{{tb.nombreArchivo}}"
+              />
+              <input
+                type="hidden"
+                name="idImagen"
+                id="idImagen"
+                value="{{tb.idresultado}}"
+              />
+              <button
+                type="submit"
+                class="eliminar"
+                id="eliminarImagenre"
+                title="Eliminar"
+                value="{{tb.idresultado}}"
+              >
+                <i class="bx bxs-trash"></i>
+              </button>
+            </form>
+            <img
+              src="{{ tb.pathArchivo }}"
+              alt="imagen"
+              id="{{tb.idImagenResultado}}"
+              class="miresultado"
+            />
+            <div class="detailfoto">
+              <span>{{tb.nombreArchivo}}</span>
+              <span>{{tb.fechacreacion}}</span>
+              <span><i class="bx bxs-heart bx-flashing"></i></span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="miModal" class="modal">
+        <span class="close" id="cerrarModal">&times;</span>
+        <img class="modal-content" id="imagenExpandida" />
+      </div>
+    </div>
+
+    {%include '/components/footer.html' %}
+  </body>
+</html>

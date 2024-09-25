@@ -10,6 +10,7 @@
 
     <div class="main-content">
       <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
+      <input type="hidden" id="emailuser" value='{{session["correo"]}}' />
 
       <div class="container">
         <div id="loader" class="loader" style="display: none"></div>
@@ -19,10 +20,10 @@
           <h2>Tomar Foto</h2>
         </div>
 
-        <input type="hidden" name="tamanio" id="tamanio" />
-        <input type="hidden" name="formato" id="formato" />
+        <input type="hidden" name="tamaniofoto" id="tamaniofoto" />
+        <input type="hidden" name="formatofoto" id="formatofoto" />
         <div class="containerelegir">
-          <video style="display: none;" id="video" autoplay></video>
+          <video style="display: none" id="video" autoplay></video>
           <div class="buttonsVideo">
             <button id="capturar">Capturar Imagen</button>
             <button id="encenderApagar">Encender Cámara</button>
@@ -38,34 +39,90 @@
           />
         </div>
         <div class="elegircontainer">
-          <select name="txtidiomasfoto" id="txtidiomasfoto">
-            <option value="es">Espaniol</option>
-            <option value="en">Ingles</option>
-          </select>
-          <button type="button" id="IniciarTraduccionfoto">Iniciar Scan</button>
+          <select name="txtidiomasfoto" id="txtidiomasfoto"></select>
+          <button type="button" id="IniciarTraduccionfoto" disabled>
+            Iniciar Scan
+          </button>
         </div>
         <div class="imgcontainer">
-          <img id="imgEscaneadafoto" src="/static/img/imagen_mejorada.png" alt="" />
+          <img
+            id="imgEscaneadafoto"
+            src="/static/img/imagen_mejorada.png"
+            alt=""
+            crossorigin="anonymous"
+          />
+          <div class="detailImage">
+            <span>Imagen Escaneada </span>
+            <i
+              class="bx bxs-save bx-spin bx-flip-horizontal"
+              title="Guardar"
+              id="guardarImagen"
+            ></i>
+            <i
+              class="bx bxs-share-alt bx-tada bx-flip-vertical"
+              title="Compartir"
+            ></i>
+            <i
+              class="bx bxs-cloud-download bx-tada bx-flip-horizontal"
+              title="Descargar"
+              id="descargarImagenAr"
+            ></i>
+          </div>
         </div>
         <div class="imgcontainer">
-          <img id="imgTraducidafoto" src="/static/img/imagenmarcada.png" alt="" />
+          <img
+            id="imgTraducidafoto"
+            src="/static/img/imagenmarcada.png"
+            alt=""
+            crossorigin="anonymous"
+          />
+          <div class="detailImage">
+            <span>Imagen Traducida </span>
+            <i
+              class="bx bxs-save bx-spin bx-flip-horizontal"
+              title="Guardar"
+              id="guardarImagenTraducida"
+            ></i>
+            <i
+              class="bx bxs-share-alt bx-tada bx-flip-vertical"
+              title="Compartir"
+            ></i>
+            <i
+              class="bx bxs-cloud-download bx-tada bx-flip-horizontal"
+              title="Descargar"
+              id="descargarImagenTraducida1"
+            ></i>
+          </div>
         </div>
         <div class="tableResultados">
           <div class="containerTexto">
             <span>Texto</span>
             <p id="textofoto">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo,
-              provident deserunt labore sunt repellat eaque culpa ipsam sed!
-              Iste facere laboriosam voluptate beatae amet odit hic tempora
-              sequi, minima aliquam!
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Provident, harum tempora! Optio eos laborum modi reprehenderit,
+              aperiam cumque doloribus molestiae sint reiciendis, velit ut vero
+              fugit quia cum aspernatur non!
             </p>
             <span>Traduccion</span>
             <p id="traduccionfoto">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
-              cumque animi laudantium sequi, culpa molestiae autem sunt
-              architecto odio velit consectetur aperiam. Obcaecati cum odit
-              numquam, debitis repellat laudantium iure.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Temporibus magni ad adipisci. Id doloribus quos ab deserunt
+              explicabo. Est quam ullam dicta necessitatibus id esse delectus
+              temporibus! Quo, provident possimus?
             </p>
+            <div class="guardar">
+              <span>Descargar Como</span>
+              <i
+                class="bx bxs-file-pdf bx-spin"
+                title="pdf"
+                id="pdfdescargar"
+              ></i>
+              <i
+                class="bx bxs-file-txt bx-spin"
+                title="Txt"
+                id="descargartxt1"
+              ></i>
+            </div>
           </div>
 
           <div class="tituloResultado">
@@ -80,17 +137,29 @@
                 <td>Traduccion</td>
               </tr>
             </thead>
-            <tbody id="pintarfoto">
-              <tr>
-                <td>No Palabra</td>
-                <td>Palabra</td>
-                <td>Traduccion</td>
-              </tr>
-            </tbody>
+            <tbody id="pintarfoto"></tbody>
           </table>
         </div>
       </div>
     </div>
+    <script>
+      const txtidiomasfoto12 = document.querySelector("#txtidiomasfoto");
+      SelectDynamic2(
+        txtidiomasfoto12,
+        "http://127.0.0.1:8000/verIdiomas",
+        "abreviacion",
+        "nombreIdioma"
+      );
+
+      function SelectDynamic2(input, url, id, valor) {
+        axios.get(url, {}).then(function (response) {
+          Object.entries(response.data).forEach(([key, value]) => {
+            input.innerHTML +=
+              "<option value='" + value[id] + "'>" + value[valor] + "</option>";
+          });
+        });
+      }
+    </script>
     {%include '/components/footer.html' %}
   </body>
 </html>

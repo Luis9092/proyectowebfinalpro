@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {%include '/components/header.html' %}
+
+    <title>Tomar Foto</title>
+  </head>
+  <body>
+    {% include '/components/menu.html' %}
+
+    <div class="main-content">
+      <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
+      <div class="container">
+        <div id="loader" class="loader" style="display: none"></div>
+
+        <div class="titulo">
+          <span> <i class="bx bx-chevrons-right"></i> </span>
+          <h2>Idiomas</h2>
+        </div>
+        <form action="/crearidioma" method="POST" id="formcrearIdioma">
+          <div class="containerformidiomas">
+            <input type="hidden" id="txtidi" name="txtidi" value="" />
+            <input type="hidden" id="fechac" name="fechac" value="" />
+            <div class="input">
+              <span>Idioma</span>
+              <input
+                type="text"
+                name="txtidioma"
+                id="txtidioma"
+                placeholder="Idioma"
+              />
+            </div>
+            <div class="input">
+              <span>Prefijo</span>
+              <input
+                type="text"
+                name="txtprefijo"
+                id="txtprefijo"
+                placeholder="Prefijo"
+              />
+            </div>
+          </div>
+          <div class="botonesgroup">
+            <button
+              type="button"
+              class="btnIniciar"
+              id="btnCrearIdioma"
+              name="valor"
+              value="crear"
+            >
+              Agregar
+            </button>
+            <button
+              type="button"
+              class="btnEliminar"
+              id="btnEliminar"
+              name="valor"
+              value="eliminar"
+            >
+              Eliminar
+            </button>
+            <button
+              type="button"
+              class="btnActualizar"
+              id="btnActualizar"
+              name="valor"
+              value="actualizar"
+            >
+              Actualizar
+            </button>
+          </div>
+        </form>
+
+        <div class="tablePrincipal">
+          <div class="header"></div>
+          <table id="tableidiomas" class="display row-border">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th style="display: none">r</th>
+
+                <th>Idioma</th>
+                <th>Prefijo</th>
+                <th>Fecha Creacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tb in data %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td style="display: none">{{tb.id}}</td>
+                <td>{{tb.nombreIdioma}}</td>
+                <td>{{tb.abreviacion}}</td>
+                <td>{{tb.fechacreacion}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $("#tableidiomas").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+          },
+          scrollY: true,
+          scrollX: true,
+        });
+      });
+    </script>
+
+    {%include '/components/footer.html' %}
+  </body>
+</html>

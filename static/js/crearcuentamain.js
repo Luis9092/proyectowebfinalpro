@@ -89,7 +89,7 @@ function formatearFecha(e) {
 
   // Definimos un objeto con los códigos de formato comunes
   const formatos = {
-    'dd': (fechaObj.getDate() + 1).toString().padStart(2, '0'),
+    'dd': (fechaObj.getDate()).toString().padStart(2, '0'),
     'mm': (fechaObj.getMonth() + 1).toString().padStart(2, '0'), // Meses en JavaScript empiezan desde 0
     'yyyy': fechaObj.getFullYear(),
   };
@@ -153,7 +153,7 @@ submitController = () => {
     ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos correctamente*");
   } else {
     Swal.fire({
-      title: '<h5 style="color:#08bb40; " >Creando Cuenta...</h5>',
+      title: '<h5 style="color:#00CDB5; " >Creando Cuenta...</h5>',
       html: "Enviando datos en <b></b>.",
       timer: 2000,
       timerProgressBar: true,

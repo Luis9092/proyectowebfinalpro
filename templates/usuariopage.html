@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {%include '/components/header.html' %}
+
+    <title>Tomar Foto</title>
+  </head>
+  <body>
+    {% include '/components/menu.html' %}
+
+    <div class="main-content">
+      <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
+
+      <div class="container">
+        <div id="loader" class="loader" style="display: none"></div>
+
+        <div class="titulo">
+          <span> <i class="bx bx-chevron-right"></i> </span>
+          <h2>Mi perfil</h2>
+        </div>
+        <form
+          method="POST"
+          action="/actualizarImagenPerfil"
+          id="formularioPerfil"
+          class="estiloformulario"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="hidden"
+            id="idus90"
+            name="idus90"
+            value='{{session["id"]}}'
+          />
+          <input
+            type="hidden"
+            id="imgantes"
+            name="imgantes"
+            value='{{session["imgperfil01"]}}'
+          />
+          <div class="contenedordata">
+            <p>
+              Hola bienvenido(a), que tenga un buen dia.
+              <b> {{session["nombres"]}}.</b>
+            </p>
+            <div class="contenedorImageperfil">
+              <img
+                id="fotoPerfiluser"
+                name="fotoPerfiluser"
+                src='/static/imagenesusuariosPerfil/{{session["imgperfil01"]}}'
+                alt="imagen"
+              />
+            </div>
+          </div>
+          <input type="file" id="subirFotoPerfil" name="subirFotoPerfil" />
+          <button type="submit" id="btnAceptafoto" class="btnfinal" disabled>
+            ActualizarFoto
+          </button>
+        </form>
+      </div>
+    </div>
+    {%include '/components/footer.html' %}
+  </body>
+</html>

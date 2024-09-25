@@ -9,7 +9,6 @@ const mainContent = document.querySelector('.main-content');
 
 menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
-    // menuToggle.classList.toggle("abierto");
 });
 
 
@@ -39,10 +38,7 @@ let getMode = localStorage.getItem("mode");
 if (getMode && getMode === "dark") {
     body.classList.toggle("dark");
 }
-// let getStatus = localStorage.getItem("status");
-// if (getStatus && getStatus === "close") {
-//     sidebar.classList.toggle("close");
-// }
+
 
 modeToggle.addEventListener("click", () => {
     body.classList.toggle("dark");
@@ -52,4 +48,5 @@ modeToggle.addEventListener("click", () => {
         localStorage.setItem("mode", "light");
     }
 });
+
 

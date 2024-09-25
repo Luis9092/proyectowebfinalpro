@@ -109,7 +109,7 @@ submitController = () => {
     ValidacionLogin("warning", "#FF0000", "Por favor llenar los campos*");
   } else {
     Swal.fire({
-      title: '<h5 style="color:#ff0044; " >Confirmando su identidad...</h5>',
+      title: '<h5 style="color:#00CDB5; " >Confirmando su identidad...</h5>',
       html: "Enviando datos en <b></b>.",
       timer: 2000,
       timerProgressBar: true,
@@ -159,14 +159,14 @@ function EnviarData() {
         Toast.fire({
           icon: "warning",
           title:
-            "<h5 style='color:#ff0044; font-size:15px;'>Contrasenia o usuario incorrectos.</h5>",
+            "<h5 style='color:#00CDB5; font-size:15px;'>Contrasenia o usuario incorrectos.</h5>",
         });
       } else {
         const Toast = Swal.mixin({
           toast: true,
           position: "bottom-end",
           showConfirmButton: false,
-          iconColor: "#08bb40",
+          iconColor: "#00CDB5",
           timer: 2000,
           timerProgressBar: true,
           didOpen: (toast) => {

@@ -16,11 +16,11 @@ class Usuarios:
             per = retorno.json()
             session["correo"] = per["correo"]
             session["id"] = per["id"]
-            session["nombres"] = per["nombres"] 
-      
+            session["nombres"] = per["nombres"]
+            session["imgperfil01"] = per["imagen"]
             return per["idRole"]
         else:
-     
+
             return 0
 
     def crearCuenta(self, nombres, apellidos, correo, pasw, fechaNacimiento):
@@ -55,7 +55,7 @@ class Usuarios:
         cadena = ""
         if retorno.status_code == 200:
             data = retorno.json()
-            
+
             for m in data:
                 print(m["nombre"])
                 cadena += (
@@ -71,7 +71,5 @@ class Usuarios:
                     + "</a>\
               </div>\n"
                 )
-            session["menu"] = cadena    
-            return 1 
-        
-        
+            session["menu"] = cadena
+            return 1
