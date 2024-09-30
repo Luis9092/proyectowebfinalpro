@@ -13,7 +13,6 @@
       <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
 
       <div class="container">
-        <div id="loader" class="loader" style="display: none"></div>
 
         <div class="titulo">
           <span><i class="bx bx-chevrons-right"></i> </span>
@@ -21,7 +20,7 @@
         </div>
         <div class="gridresultado" id="gridresultado">
           {% for tb in tablare %}
-          <div class="foto">
+          <div class="foto contanedoranima">
             <form
               action="/eliminarResultadosUser"
               id="{{tb.idImagenResultado}}"

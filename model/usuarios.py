@@ -12,15 +12,17 @@ class Usuarios:
         url = "https://repositorioprivado.onrender.com/autenticarUsuario/<correo><pas>"
         parametros = {"correo": correo, "pas": pasw}
         retorno = requests.get(url, parametros)
+
         if retorno.status_code == 200:
             per = retorno.json()
-            session["correo"] = per["correo"]
-            session["id"] = per["id"]
-            session["nombres"] = per["nombres"]
-            session["imgperfil01"] = per["imagen"]
-            return per["idRole"]
+            if per["estado"] != 0:
+                session["correo"] = per["correo"]
+                session["id"] = per["id"]
+                session["nombres"] = per["nombres"]
+                session["imgperfil01"] = per["imagen"]
+                return per["idRole"]
+            return 0
         else:
-
             return 0
 
     def crearCuenta(self, nombres, apellidos, correo, pasw, fechaNacimiento):
