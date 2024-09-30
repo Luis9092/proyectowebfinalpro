@@ -1,7 +1,5 @@
 import requests
 import json
-import firebase_admin
-from firebase_admin import credentials, storage
 
 
 class ResultadosFiles:
