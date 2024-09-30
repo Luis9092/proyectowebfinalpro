@@ -47,11 +47,12 @@ if (inputArchivo) {
 
 const IniciarTraduccion = document.querySelector("#IniciarTraduccion");
 let nombreArreglado = ""
+let descargarValores = 0;
 
 //BOTON PRINCIPAL PARA PODER INICIAR CON EL SCAN
+
 if (IniciarTraduccion) {
     IniciarTraduccion.addEventListener("click", (e) => {
-
         if (iniciador == true) {
             let agregado = hora();
             let nombre = name.replace(/\s+/g, '');
@@ -60,38 +61,67 @@ if (IniciarTraduccion) {
             initTodo(nuevoNombre);
             NombresEliminar.push(nuevoNombre);
         }
-
     });
 }
 
-let descargarValores = 0;
 
 async function initTodo(nuevoNombre) {
 
-    // alert(nuevoNombre);
-
     const retorno1 = await uploadImage(nuevoNombre);
-    //retorno 1 exitp
+
     if (retorno1 == 1) {
         const retorno2 = await IniciarScan(nuevoNombre, tamanio.value, formato.value, txtid12.value);
-        // alert("proceso uno exito");
         if (retorno2 == 1) {
-            // alert("proceso dos exito");
+
             let idioma = txtidiomas.value;
             const retorno3 = await traducirImage(nuevoNombre, idioma);
             if (retorno3 == 1) {
-
                 const retornoFin = await TraerData();
                 if (retornoFin == 1) {
-                    imgEscaneada.src = "http://127.0.0.1:8000/fileEscaneado/" + nuevoNombre;
-                    imgTraducida.src = "http://127.0.0.1:8000/fileTraducido/" + nuevoNombre;
+                    imgEscaneada.src = "https://repositorioprivado.onrender.com/fileEscaneado/" + nuevoNombre;
+                    imgTraducida.src = "https://repositorioprivado.onrender.com/fileTraducido/" + nuevoNombre;
+                    // obtenerImagenescaneada(nuevoNombre);
+                    // obtenerImagenesTraducida(nuevoNombre);
                     descargarValores = 1;
                 }
             }
         }
     }
+}
 
+async function obtenerImagenescaneada(nuevoNombre) {
+    try {
+        const response = await fetch('https://repositorioprivado.onrender.com/fileEscaneado/' + nuevoNombre);
 
+        if (!response.ok) {
+            throw new Error('Error al obtener la imagen: ' + response.statusText);
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
+        const img = imgEscaneada;
+        img.src = url;
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
+}
+async function obtenerImagenesTraducida(nuevoNombre) {
+    try {
+        const response = await fetch('https://repositorioprivado.onrender.com/fileTraducido/' + nuevoNombre);
+
+        if (!response.ok) {
+            throw new Error('Error al obtener la imagen: ' + response.statusText);
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
+        const img = imgTraducida;
+        img.src = url;
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
 }
 
 
@@ -110,7 +140,7 @@ async function uploadImage(nuevoNombre) {
         formData.append('file', newFile); // Agrega la nueva imagen al FormData
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/subirImagenServer', formData, {
+            const response = await axios.post('https://repositorioprivado.onrender.com/subirImagenServer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -120,6 +150,7 @@ async function uploadImage(nuevoNombre) {
             retorno = 1;
         } catch (error) {
             alertModal("#ff0055", "Error al cargarlo al servidor :(", "error",)
+            console.log(error);
             retorno = 0;
         }
     } else {
@@ -133,7 +164,7 @@ async function IniciarScan(nuevoNombre, tamanio, formato, id) {
     retorno = 0;
 
     try {
-        const response = await axios.post("http://127.0.0.1:8000/IniciarScanImage", {
+        const response = await axios.post("https://repositorioprivado.onrender.com/IniciarScanImage", {
             id: "",
             idUser: String(id),
             nombre: String(nuevoNombre),
@@ -157,7 +188,7 @@ async function IniciarScan(nuevoNombre, tamanio, formato, id) {
 async function traducirImage(name, idioma) {
     retorno = 0;
     try {
-        const response = await axios.post("http://127.0.0.1:8000/traducirTextoImage", {
+        const response = await axios.post("https://repositorioprivado.onrender.com/traducirTextoImage", {
             id: 0,
             name_file: String(name),
             idiomaTraducir: String(idioma)
@@ -179,7 +210,7 @@ async function traeridImagen(name) {
     retorno = 0;
     try {
         params = { nameimg: String(name) }
-        const response = await axios.get("http://127.0.0.1:8000/obtneridImage/<nameimg>", {
+        const response = await axios.get("https://repositorioprivado.onrender.com/obtneridImage/<nameimg>", {
             params
         });
         console.log("textoTraducidondata ", response.data.id);
@@ -256,7 +287,7 @@ let idiomaTraduccion = "";
 async function TraerData() {
     retorno = 0;
     try {
-        const response = await axios.get("http://127.0.0.1:8000/ObtenerDataImagen", {
+        const response = await axios.get("https://repositorioprivado.onrender.com/ObtenerDataImagen", {
         });
         console.log("textoTraducidondata ", response.data.traduccionpalabras);
 
@@ -323,7 +354,7 @@ async function eliminarRecurso(url) {
     }
 }
 
-// Llama a la función con la URL de la API que deseas eliminar
+// Lljama a la función con la URL de la API que deseas eliminar
 // ADICIONALES PARA PODER DARLE VISTA
 
 function alertModal(color, mensaje, icon) {
@@ -352,7 +383,7 @@ function alertModal(color, mensaje, icon) {
 window.addEventListener('beforeunload', function (event) {
     if (NombresEliminar.length != 0) {
         NombresEliminar.forEach(element => {
-            let url = "http://127.0.0.1:8000/eliminaImage/" + element;
+            let url = "https://repositorioprivado.onrender.com/eliminaImage/" + element;
             eliminarRecurso(url);
         });
     }
@@ -362,7 +393,7 @@ const descargarImagenAr = document.querySelector("#descargarImagenAr");
 if (descargarImagenAr) {
     descargarImagenAr.addEventListener("click", () => {
         if (descargarValores == 1) {
-            const url = `http://127.0.0.1:8000/descargarImagenEscaneado/${nombreArreglado}`;
+            const url = `https://repositorioprivado.onrender.com/descargarImagenEscaneado/${nombreArreglado}`;
             const retorno = descargarImagenMarcada(url, nombreArreglado);
             if (retorno == 1) {
                 alertModal("#00dfdf", "Imagen Descargada Correctamente!!", "success",);
@@ -375,7 +406,7 @@ const descargarImagenTraducida1 = document.querySelector("#descargarImagenTraduc
 if (descargarImagenTraducida1) {
     descargarImagenTraducida1.addEventListener("click", () => {
         if (descargarValores == 1) {
-            const url = `http://127.0.0.1:8000/descargarImagenTraducido/${nombreArreglado}`;
+            const url = `https://repositorioprivado.onrender.com/descargarImagenTraducido/${nombreArreglado}`;
             const retorno = descargarImagenMarcada(url, nombreArreglado);
             if (retorno == 1) {
                 alertModal("#00dfdf", "Imagen Descargada Correctamente!!", "success",);
@@ -448,8 +479,9 @@ function convertirImagenABlob(imgElement) {
 
 function enviarImagenAFlask(blob) {
     const formData = new FormData();
-    formData.append("imagen", blob, nombreArreglado); // Puedes cambiar el nombre del archivo
+    formData.append("imagen", blob, nombreArreglado);
     formData.append("idImagen", idImagen)
+    
     fetch("/subir_imagen", {
         method: "POST",
         body: formData,
@@ -517,7 +549,7 @@ async function crearArchivodoc(id, email, text, tra, idimagen, nameFinal, origen
         const retorno2 = await descargarArchivo1(nameFinal);
         if (retorno2 == 1) {
             alertModal("#00dfdf", "Descargando archivo", "success");
-            const link = "http://127.0.0.1:8000/eliminararchivos/" + nameFinal;
+            const link = "https://repositorioprivado.onrender.com/eliminararchivos/" + nameFinal;
             eliminarRecurso(link);
         } else {
             alertModal("#ff0055", "Error al descargar el archivo.", "error",)
@@ -529,7 +561,7 @@ async function crearArchivodoc(id, email, text, tra, idimagen, nameFinal, origen
 async function EnviarTextoparaPdf(id, correo, text, tra, idimagen, nombre, origen, traduccion, tipoArchivo) {
     retorno = 0;
     try {
-        const response = await axios.post("http://127.0.0.1:8000/creararchivo", {
+        const response = await axios.post("https://repositorioprivado.onrender.com/creararchivo", {
             idresultado: String(id),
             idImagenResultado: String(idimagen),
             texto: String(text),
@@ -553,7 +585,7 @@ async function EnviarTextoparaPdf(id, correo, text, tra, idimagen, nombre, orige
 async function descargarArchivo1(nameFile) {
     try {
         // Construimos la URL completa del endpoint
-        const url2 = `http://127.0.0.1:8000/descargararchivo/${nameFile}`;
+        const url2 = `https://repositorioprivado.onrender.com/descargararchivo/${nameFile}`;
         // Realizamos la petición fetch
         const response = await fetch(url2);
 

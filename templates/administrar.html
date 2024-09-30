@@ -2,8 +2,9 @@
 <html lang="es">
   <head>
     {%include '/components/header.html' %}
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
 
-    <title>Tomar Foto</title>
+    <title>Administrar</title>
   </head>
   <body>
     {% include '/components/menu.html' %}
@@ -16,7 +17,12 @@
         <div class="containerdialog">
           <div class="infoUser">
             <div class="imgus">
-              <img src="/static/img/arb.png" alt="" />
+              <img
+                id="imagenusuariomodal"
+                src="/static/img/arb.png"
+                crossorigin="anonymous"
+                alt="Imagen"
+              />
             </div>
             <hr />
 
@@ -25,7 +31,7 @@
               <input type="hidden" name="idus1" id="idus1" />
               <div class="dataus">
                 <div class="inputs">
-                  <span>Nombres</span>
+                  <span><i class="bx bxs-arrow-from-left"></i> Nombres</span>
                   <input
                     type="text"
                     placeholder="Nombre"
@@ -35,7 +41,7 @@
                   />
                 </div>
                 <div class="inputs">
-                  <span>Correo</span>
+                  <span><i class="bx bxs-arrow-from-left"></i> Correo</span>
                   <input
                     type="text"
                     placeholder="Correo"
@@ -48,7 +54,7 @@
 
               <div class="dataus">
                 <div class="inputs">
-                  <span>Estado</span>
+                  <span><i class="bx bxs-arrow-from-left"></i> Estado</span>
                   <input
                     type="number"
                     value="1"
@@ -59,7 +65,9 @@
                   />
                 </div>
                 <div class="inputs">
-                  <span>fecha Creacion</span>
+                  <span
+                    ><i class="bx bxs-arrow-from-left"></i> Fecha Creación</span
+                  >
                   <input
                     type="text"
                     placeholder="Fecha Creacion"
@@ -71,7 +79,10 @@
               </div>
               <div class="dataus">
                 <div class="inputs">
-                  <span>Fecha Nacimiento</span>
+                  <span
+                    ><i class="bx bxs-arrow-from-left"></i> Fecha
+                    Nacimiento</span
+                  >
                   <input
                     type="text"
                     placeholder="Nombre"
@@ -81,7 +92,7 @@
                   />
                 </div>
                 <div class="inputs">
-                  <span>Edad</span>
+                  <span><i class="bx bxs-arrow-from-left"></i> Edad</span>
                   <input
                     type="text"
                     placeholder="Edad"

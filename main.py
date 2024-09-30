@@ -32,6 +32,47 @@ def menu():
     return render_template("menu.html")
 
 
+@app.route("/inicio")
+def inicioApp():
+    if "correo" not in session or not session["correo"]:
+        return redirect(url_for("root"))
+    return render_template("inicio.html")
+
+
+@app.route("/elegirArchivo")
+def subirArchivo():
+    if "correo" not in session or not session["correo"]:
+        return redirect(url_for("root"))
+    return render_template("desdeArchivos.html")
+
+
+@app.route("/tomarfoto")
+def tomarFoto():
+    if "correo" not in session or not session["correo"]:
+        return redirect(url_for("root"))
+    return render_template("tomarfoto.html")
+
+
+@app.route("/miperfil")
+def miperfil():
+    if "correo" not in session or not session["correo"]:
+        return redirect(url_for("root"))
+    return render_template("usuariopage.html")
+
+
+@app.route("/idiomas")
+def idiomas():
+    url = "https://repositorioprivado.onrender.com/verIdiomas"
+    if "correo" not in session or not session["correo"]:
+        return redirect(url_for("root"))
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return render_template("idiomas.html", data=data)
+
+    return render_template("idiomas.html", data=[])
+
+
 @app.route("/crearUsuario", methods=["POST"])
 def crearUsuario():
     us = Usuarios()
@@ -61,34 +102,6 @@ def iniciarSesion():
     return json.dumps(respuesta)
 
 
-@app.route("/inicio")
-def inicioApp():
-    if "correo" not in session or not session["correo"]:
-        return redirect(url_for("root"))
-    return render_template("inicio.html")
-
-
-@app.route("/elegirArchivo")
-def subirArchivo():
-    if "correo" not in session or not session["correo"]:
-        return redirect(url_for("root"))
-    return render_template("desdeArchivos.html")
-
-
-@app.route("/tomarfoto")
-def tomarFoto():
-    if "correo" not in session or not session["correo"]:
-        return redirect(url_for("root"))
-    return render_template("tomarfoto.html")
-
-
-@app.route("/miperfil")
-def miperfil():
-    if "correo" not in session or not session["correo"]:
-        return redirect(url_for("root"))
-    return render_template("usuariopage.html")
-
-
 @app.route("/actualizarImagenPerfil", methods=["POST"])
 def actualizarImagenPerfil():
     tiempo = datetime.now()
@@ -100,7 +113,7 @@ def actualizarImagenPerfil():
     if imagenActual.filename != "":
         nombreFinal = horaActual + "_" + imagenActual.filename
         imagenActual.save("static/imagenesusuariosPerfil/" + nombreFinal)
-    url = "http://127.0.0.1:8000/actualizarImagenUsuario"
+    url = "https://repositorioprivado.onrender.com/actualizarImagenUsuario"
 
     response = {}
     parametros = {"documento": str(iduser), "nuevo_valor": str(nombreFinal)}
@@ -132,7 +145,7 @@ def actualizarImagenPerfil():
 def resultados():
     if "correo" not in session or not session["correo"]:
         return redirect(url_for("root"))
-    url = "http://127.0.0.1:8000/verResultadosGuardados/<id>"
+    url = "https://repositorioprivado.onrender.com/verResultadosGuardados/<id>"
     id = session.get("id")
 
     response = requests.get(url, params={"id": id})
@@ -148,17 +161,20 @@ def resultados():
 
 @app.route("/eliminarResultadosUser", methods=["POST"])
 def eliminarResultadosUser():
-    idimagen = request.form["idImagen"]
-    nameimagen = request.form["nombreArchivo"]
-    api_url = f"http://127.0.0.1:8000/eliminarArchivoUser/{idimagen}/{nameimagen}"
+    idimagen = request.form.get("idimagen")
+    nameimagen = request.form.get("nameimagen")
+    api_url = f"https://repositorioprivado.onrender.com/eliminarArchivoUser/{idimagen}/{nameimagen}"
+    print(idimagen)
+    print(nameimagen)
 
     alerta = {}
     try:
         # Realizar la solicitud DELETE
         response = requests.delete(api_url)
         # Comprobar el código de estado de la respuesta
+        if response.status_code == 200:
+            alerta = {"mensaje": "Archivo eliminado correctamente", "estado": 1}
 
-        alerta = {"mensaje": "Archivo eliminado correctamente", "estado": 1}
     except Exception as e:
         print(f"Ocurrió un error: {e}")
         alerta = {"mensaje": "Error al eliminar el archivo", "estado": 0}
@@ -170,7 +186,8 @@ def eliminarResultadosUser():
 def subir_imagen():
     respuesta = {"mensaje": "error", "estado": 0}
     idImagen = request.form["idImagen"]
-
+    print(idImagen)
+    
     if "imagen" not in request.files:
         return "No file part"
     file = request.files["imagen"]
@@ -179,31 +196,43 @@ def subir_imagen():
     nombre = file.filename
     re = ResultadosFiles()
     if file:
-        filename = secure_filename(file.filename)
-        file.save("static/" + filename)
-        url = "http://127.0.0.1:8000/guardarImagenResultado"
+        # Generar un nombre único para el archivo
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{timestamp}_{secure_filename(file.filename)}"
+        file_path = os.path.join("static", filename)
 
-        # Parámetros a enviar
-        param1 = session.get("id")
-        param2 = idImagen
+        try:
+            # Guardar el archivo
+            file.save(file_path)
+            url = "https://repositorioprivado.onrender.com/guardarImagenResultado"
 
-        # Hacer la solicitud POST con el archivo
-        with open("static/" + filename, "rb") as f:
-            # Archivo a subir
-            files = {"file": f}
+            # Parámetros a enviar
+            param1 = session.get("id")
+            param2 = idImagen
 
-            # Hacer la solicitud POST
-            response = requests.post(
-                url, files=files, data={"param1": param1, "param2": param2}
-            )
-            if response.status_code == 200:
-                print("hecho con exito xdxd")
-                respuesta = {"mensaje": "Exito en todo broo", "estado": 1}
+            # Hacer la solicitud POST con el archivo
+            with open(file_path, "rb") as f:
+                files = {"file": f}
+                response = requests.post(
+                    url, files=files, data={"param1": param1, "param2": param2}
+                )
 
-    ruta = "static/" + nombre
-    if os.path.isfile(ruta):
-        os.remove(ruta)
-        re.eliminarImagenResultadoServer(nombre)
+                if response.status_code == 200:
+                    print("Hecho con éxito.")
+                    respuesta = {"mensaje": "Éxito en todo broo", "estado": 1}
+                else:
+                    print("Error en la solicitud:", response.status_code)
+                    respuesta= {"mensaje": "Error en la solicitud", "estado": 0}
+        except Exception as e:
+            print("Ocurrió un error:", str(e))
+            respuesta = {"mensaje": "Error al guardar el archivo", "estado": 0}
+        finally:
+            # Eliminar archivo si existe
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                re.eliminarImagenResultadoServer(filename)
+    else:
+        respuesta = {"mensaje": "No se recibió ningún archivo", "estado": 0}
 
     return json.dumps(respuesta)
 
@@ -213,19 +242,6 @@ def acercade():
     if "correo" not in session or not session["correo"]:
         return redirect(url_for("root"))
     return render_template("acercade.html")
-
-
-@app.route("/idiomas")
-def idiomas():
-    url = "http://127.0.0.1:8000/verIdiomas"
-    if "correo" not in session or not session["correo"]:
-        return redirect(url_for("root"))
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        return render_template("idiomas.html", data=data)
-
-    return render_template("idiomas.html", data=[])
 
 
 @app.route("/crearidioma", methods=["POST"])
@@ -255,10 +271,10 @@ def crearIdioma():
 def adminPage():
     if "correo" not in session or not session["correo"]:
         return redirect(url_for("root"))
-    url = "http://127.0.0.1:8000/viewUser"
+    url = "https://repositorioprivado.onrender.com/viewUser"
     response = requests.get(url)
 
-    url2 = "http://127.0.0.1:8000/estadisticasUser"
+    url2 = "https://repositorioprivado.onrender.com/estadisticasUser"
     response2 = requests.get(url2)
     data2 = response2.json()
 
@@ -297,3 +313,6 @@ def salir():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+# EL PROBLAEMA ES EL ENVICO DE DATOS

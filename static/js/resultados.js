@@ -4,6 +4,8 @@ for (const item of miresultado) {
     item.addEventListener("click", (e) => {
         let target = e.target;
         let id = target.id;
+        console.log(id);
+        
         const imagen = document.getElementById(id);
         const modal = document.getElementById('miModal');
         const imagenExpandida = document.getElementById('imagenExpandida');
@@ -31,10 +33,11 @@ let eliminarImagenre = document.querySelectorAll("#eliminarImagenre");
 
 for (const element of eliminarImagenre) {
 
-    element.addEventListener("click", () => {
+    element.addEventListener("click", (e) => {
+        let id = element.value;
 
-        const id = element.value;
         console.log(id);
+
         enviaradataeliminar(id);
     });
 }
@@ -42,44 +45,46 @@ for (const element of eliminarImagenre) {
 function enviaradataeliminar(id) {
 
     const formEliminarArhivoUser = $("#" + id + "");
+    const nombrearchivo = document.querySelector(`#nombreArchivo${id}`);
+    const idimagen = document.querySelector(`#idImagen21${id}`);
 
-    formEliminarArhivoUser.submit(function (e) {
-        e.preventDefault();
+    console.log(nombrearchivo.value);
+    console.log(idimagen.value);
 
-        $.ajax({
-            type: formEliminarArhivoUser.attr("method"),
-            url: formEliminarArhivoUser.attr("action"),
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                const respuesta = JSON.parse(response);
-                console.log(respuesta.estado);
+    $.ajax({
+        type: formEliminarArhivoUser.attr("method"),
+        url: formEliminarArhivoUser.attr("action"),
+        data: {
+            idimagen: idimagen.value,
+            nameimagen: nombrearchivo.value,
+        },
+        success: function (response) {
+            const respuesta = JSON.parse(response);
+            console.log(respuesta.estado);
 
-                if (respuesta.estado == 0) {
-                    Swal.fire({
-                        title: "Error",
-                        text: respuesta.mensaje,
-                        icon: "error",
-                        confirmButtonColor: "#ff004c",
-                    }).then(function () {
-                        // window.location.replace("/miperfil");
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Excelente!!",
-                        text: respuesta.mensaje,
-                        icon: "success",
-                        confirmButtonColor: "#00CDB5",
-                    }).then(function () {
-                        window.location.replace("/resultados");
-                    });
-                }
-            },
-            error: function (error) {
-                alert(error);
-            },
-        });
+            if (respuesta.estado == 0) {
+                Swal.fire({
+                    title: "Error",
+                    text: respuesta.mensaje,
+                    icon: "error",
+                    confirmButtonColor: "#ff004c",
+                }).then(function () {
+                    // window.location.replace("/miperfil");
+                });
+            } else {
+                Swal.fire({
+                    title: "Excelente!!",
+                    text: respuesta.mensaje,
+                    icon: "success",
+                    confirmButtonColor: "#00CDB5",
+                }).then(function () {
+                    window.location.replace("/resultados");
+                });
+            }
+        },
+        error: function (error) {
+            alert(error);
+        },
     });
 
 }

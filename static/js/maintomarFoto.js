@@ -107,7 +107,7 @@ if (botonCapturar) {
 
             // Ejemplo de uso de Axios para subir la imagen (opcional)
             try {
-                const response = await axios.post('http://127.0.0.1:8000/subirImagenServer', formData, {
+                const response = await axios.post('https://repositorioprivado.onrender.com/subirImagenServer', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -171,7 +171,7 @@ async function initTodofoto(nuevoNombre) {
 
                 const retornoFin = await TraerDatafoto();
                 if (retornoFin == 1) {
-                    imgEscaneadafoto.src = "http://127.0.0.1:8000/fileEscaneado/" + nuevoNombre;
+                    imgEscaneadafoto.src = "https://repositorioprivado.onrender.com/fileEscaneado/" + nuevoNombre;
                     imgTraducidafoto.src = "http://127.0.0.1:8000/fileTraducido/" + nuevoNombre;
                 }
             }

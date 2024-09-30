@@ -9,6 +9,8 @@ const txtfechaus = document.querySelector("#txtfechaus");
 const txtfechanus = document.querySelector("#txtfechanus");
 const txtedad = document.querySelector("#txtedad");
 const idus1 = document.querySelector("#idus1");
+const imagenusuariomodal = document.querySelector("#imagenusuariomodal");
+
 
 if (btnuser) {
     btnuser.addEventListener("click", (e) => {
@@ -43,6 +45,9 @@ $("#tableusuarios").on("click", "tr td", function (evt) {
     fechanacimiento = target.parent("tr").find("td").eq(8).html();
     pathimage = target.parent("tr").find("td").eq(9).html();
     idus1.value = id;
+
+   
+
     txtnombresus.value = nombres + " " + apellidos;
     txtcorreous.value = correo;
     txtestado.value = Number(estado);
@@ -50,6 +55,7 @@ $("#tableusuarios").on("click", "tr td", function (evt) {
     txtfechanus.value = fechanacimiento;
     const edadretorno = calcularEdad(fechanacimiento);
     txtedad.value = edadretorno;
+    imagenusuariomodal.src = "static/imagenesusuariosPerfil/"+ pathimage;
     dialogUser.showModal();
 
 
@@ -74,7 +80,7 @@ const btnEliminarus = document.querySelector("#btnEliminarus");
 if (btnEliminarus) {
     btnEliminarus.addEventListener("click", (e) => {
         let value = e.target.value;
-        alert(value);
+      
         enviardataus(value);
     });
 }
@@ -84,7 +90,7 @@ const btnActualizarUser = document.querySelector("#btnActualizarUser");
 if (btnActualizarUser) {
     btnActualizarUser.addEventListener("click", (e) => {
         let value = e.target.value;
-        alert(value);
+   
         enviardataus(value);
     });
 }

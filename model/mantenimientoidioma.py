@@ -8,7 +8,7 @@ class MantenimientoIdioma:
 
     def crearIdioma(self, txtidioma, txtprefijo):
 
-        url = "http://127.0.0.1:8000/crearIdioma"
+        url = "https://repositorioprivado.onrender.com/crearIdioma"
         params = {
             "id": "",
             "nombreIdioma": str(txtidioma),
@@ -25,7 +25,7 @@ class MantenimientoIdioma:
 
     def eliminar(self, id, txtidioma, txtprefijo):
 
-        url = "http://127.0.0.1:8000/eliminarIdiomas"
+        url = "https://repositorioprivado.onrender.com/eliminarIdiomas"
         params = {
             "id": str(id),
             "nombreIdioma": str(txtidioma),
@@ -41,7 +41,7 @@ class MantenimientoIdioma:
         return json.dumps(respuesta)
 
     def actualizarIdioma(self, id, txtidioma, txtprefijo, fecha):
-        url = "http://127.0.0.1:8000/actualizarIdioma"
+        url = "https://repositorioprivado.onrender.com/actualizarIdioma"
         params = {
             "id": str(id),
             "nombreIdioma": str(txtidioma),

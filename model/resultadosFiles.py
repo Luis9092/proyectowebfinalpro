@@ -18,7 +18,7 @@ class ResultadosFiles:
         self.tipoArchivo = tipoArchivo
 
     def enviarDataResultado(self):
-        url = "http://127.0.0.1:8000/agregarResultado"
+        url = "https://repositorioprivado.onrender.com/agregarResultado"
         response = {}
         parametros = {
             "idresultado": str(self.idresultado),
@@ -36,31 +36,10 @@ class ResultadosFiles:
             response = {"estado": 0, "mensaje": "Por Favor Verificar Los Datos"}
         return response
 
-    def subir_imagen(self, ruta_imagen, nombre_imagen):
 
-        cred = credentials.Certificate("static/proyectouno-8e1df-3906e74c298d.json")
-        firebase_admin.initialize_app(
-            cred, {"storageBucket": "proyectouno-8e1df.appspot.com"}
-        )
-        try:
-            bucket = storage.bucket()
-            blob = bucket.blob(nombre_imagen)
-
-            # Sube la imagen al bucket
-            blob.upload_from_filename(ruta_imagen)
-
-            # Opcionalmente, puedes hacer la imagen pública
-            blob.make_public()
-            # importante para poder almacenarlo
-            pathpublica = blob.public_url
-            print(f"Imagen subida a: {blob.public_url}")
-            return pathpublica
-        except Exception as e:
-            print(f"Ocurrió un error al subir la imagen: {e}")
-            return 0
 
     def eliminarImagenResultadoServer(self, image_name):
-        api_url = "http://127.0.0.1:8000/eliminarResultadoServer"
+        api_url = "https://repositorioprivado.onrender.com/eliminarResultadoServer"
         url = f"{api_url}/{image_name}"
 
         try:

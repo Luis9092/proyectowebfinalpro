@@ -60,11 +60,11 @@
   justify-content: center;
   align-items: center;
   border-right: 1px solid var(--input-borderColor);
-  padding: 2rem 1rem;
+  padding: 1.4rem 1rem;
 }
 
 .containerdialog .imgus {
-  width: 40%;
+  width: 30%;
   background-color: var(--sidebar-bg);
   padding: 4px;
   border-radius: 4px;
@@ -89,16 +89,16 @@
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  margin: 0.6rem 0;
+  margin: 0.4rem 0;
   gap: 0 12px;
 }
 .containerdialog .dataus .inputs span {
-  font-weight: 500;
-  margin-left: 6px;
+  font-weight: 600 !important;
+  /* margin-left: 6px; */
   color: var(--text-color);
 }
 .titlemodal {
-  font-weight: bold;
+  font-weight: 700;
   color: var(--text-color);
   text-shadow: var(--text-shadow);
 }
@@ -112,13 +112,13 @@ hr {
   border: none;
   outline: none;
   padding: 8px;
-  margin-top: 6px;
+  margin-top: 2px;
   font-size: 1rem;
-  background-color: var(--bg-color);
-  border-radius: 4px;
+  background-color: var(--sidebar-bg);
   color: var(--text-color);
-  border: 1px solid var(--input-borderColor);
+  border-bottom: 0.8px solid var(--input-borderColor);
 }
+
 .image-container {
   display: flex;
   width: 30%;
@@ -177,15 +177,12 @@ hr {
 
 .colorGreen {
   color: var(--celeste-color);
-  text-shadow: var(--text-shadow);
 }
 .colorRed {
-  color: var(--morado-color);
-  text-shadow: var(--text-shadow);
+  color: var(--verde-color);
 }
 .colorBlue {
-  color: var(--verde-color);
-  text-shadow: var(--text-shadow);
+  color: var(--fusiaColor);
 }
 
 .box-info li:nth-child(1) .bx {
@@ -193,11 +190,14 @@ hr {
 }
 
 .box-info li:nth-child(2) .bx {
-  background: var(--morado-color);
+  background: var(--verde-color);
 }
 
 .box-info li:nth-child(3) .bx {
-  background: var(--verde-color);
+  background: var(--fusiaColor);
+}
+.box-info li .text p {
+  font-weight: bold;
 }
 
 .box-info li .text h3 {
@@ -212,8 +212,9 @@ hr {
 }
 
 @media (max-width: 500px) {
+  
   .image-container {
-    display: none;
+    display: none !important;
   }
 
   #dialogUser {

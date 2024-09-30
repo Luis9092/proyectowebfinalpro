@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
     {%include '/components/header.html' %}
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
 
     <title>Resultados</title>
   </head>
@@ -23,35 +24,35 @@
           <div class="foto">
             <form
               action="/eliminarResultadosUser"
-              id="{{tb.idresultado}}"
+              id="{{tb.idImagenResultado}}"
               method="post"
             >
               <input
                 type="hidden"
                 name="nombreArchivo"
-                id="nombreArchivo"
+                id="nombreArchivo{{tb.idImagenResultado}}"
                 value="{{tb.nombreArchivo}}"
               />
               <input
                 type="hidden"
-                name="idImagen"
-                id="idImagen"
+                name="idImagen21"
+                id="idImagen21{{tb.idImagenResultado}}"
                 value="{{tb.idresultado}}"
               />
               <button
-                type="submit"
+                type="button"
                 class="eliminar"
                 id="eliminarImagenre"
                 title="Eliminar"
-                value="{{tb.idresultado}}"
+                value="{{tb.idImagenResultado}}"
               >
                 <i class="bx bxs-trash"></i>
               </button>
             </form>
             <img
-              src="{{ tb.pathArchivo }}"
+              src="{{tb.pathArchivo}}"
               alt="imagen"
-              id="{{tb.idImagenResultado}}"
+              id="{{tb.idresultado}}"
               class="miresultado"
             />
             <div class="detailfoto">

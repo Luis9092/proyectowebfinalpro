@@ -3,6 +3,7 @@
   <head>
     {%include '/components/header.html' %}
     <title>Elegir Archivos</title>
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
   </head>
   <body>
     {% include '/components/menu.html' %}
@@ -34,7 +35,7 @@
         <div class="imgcontainer">
           <img
             id="imgEscaneada"
-            src="/static/img/imagen_mejorada.png"
+            src="/static/img/2335pruebafin1.jpeg"
             alt="Imagen Escaneada"
             crossorigin="anonymous"
           />
@@ -59,10 +60,9 @@
         <div class="imgcontainer">
           <img
             id="imgTraducida"
-            src="/static/img/imagenmarcada.png"
+            src="/static/img/2335pruebafin1 (1).jpeg"
             alt="Imagen Traducida"
             crossorigin="anonymous"
-
           />
           <div class="detailImage">
             <span>Imagen Traducida </span>
@@ -100,8 +100,16 @@
             </p>
             <div class="guardar">
               <span>Descargar Como</span>
-              <i class='bx bxs-file-pdf bx-spin' title="pdf" id="pdfdescargar"></i>
-              <i class='bx bxs-file-txt bx-spin' title="Txt" id="descargartxt1"></i>
+              <i
+                class="bx bxs-file-pdf bx-spin"
+                title="pdf"
+                id="pdfdescargar"
+              ></i>
+              <i
+                class="bx bxs-file-txt bx-spin"
+                title="Txt"
+                id="descargartxt1"
+              ></i>
             </div>
           </div>
 
@@ -109,7 +117,7 @@
             <h5>Resultados</h5>
             <h6 id="noPalabras">22 palabras</h6>
           </div>
-          <table>
+          <table id="tableResultadosArchivos" class="display row-border">
             <thead>
               <tr>
                 <td>No Palabra</td>
@@ -124,10 +132,20 @@
     </div>
 
     <script>
+      $(document).ready(function () {
+        $("#tableResultadosArchivos").DataTable({
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+          },
+          scrollY: true,
+          scrollX: true,
+        });
+      });
+
       const txtidiomas12 = document.querySelector("#txtidiomas");
       SelectDynamic(
         txtidiomas12,
-        "http://127.0.0.1:8000/verIdiomas",
+        "https://repositorioprivado.onrender.com/verIdiomas",
         "abreviacion",
         "nombreIdioma"
       );

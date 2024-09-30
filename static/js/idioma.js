@@ -73,9 +73,7 @@ if (btnActualizar) {
 
 
 function enviaradatacrearidioma(valores) {
-
     const formEliminarArhivoUser = $("#formcrearIdioma");
-
     $.ajax({
         type: formEliminarArhivoUser.attr("method"),
         url: formEliminarArhivoUser.attr("action"),
@@ -97,7 +95,7 @@ function enviaradatacrearidioma(valores) {
                     icon: "error",
                     confirmButtonColor: "#00CDB5",
                 }).then(function () {
-                    // window.location.replace("/miperfil");
+                  
                 });
             } else {
                 Swal.fire({
@@ -114,7 +112,6 @@ function enviaradatacrearidioma(valores) {
             alert(error);
         },
     });
-
 }
 
 

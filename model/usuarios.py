@@ -9,7 +9,7 @@ class Usuarios:
 
     def autenticarusuario(self, correo, pasw):
 
-        url = "http://127.0.0.1:8000/autenticarUsuario/<correo><pas>"
+        url = "https://repositorioprivado.onrender.com/autenticarUsuario/<correo><pas>"
         parametros = {"correo": correo, "pas": pasw}
         retorno = requests.get(url, parametros)
         if retorno.status_code == 200:
@@ -24,7 +24,7 @@ class Usuarios:
             return 0
 
     def crearCuenta(self, nombres, apellidos, correo, pasw, fechaNacimiento):
-        url = "http://127.0.0.1:8000/crearUsuario"
+        url = "https://repositorioprivado.onrender.com/crearUsuario"
         response = {}
         parametros = {
             "id": "",
@@ -49,7 +49,7 @@ class Usuarios:
         return response
 
     def devolverMenuPorRole(self, roleid):
-        url = "http://127.0.0.1:8000/devolverMenu/<roleid>"
+        url = "https://repositorioprivado.onrender.com/devolverMenu/<roleid>"
         parametros = {"roleid": roleid}
         retorno = requests.get(url, parametros)
         cadena = ""
