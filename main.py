@@ -81,6 +81,7 @@ def crearUsuario():
     correo = request.form["txtCorreoUsuario"]
     pasw = request.form["txtPassword"]
     fechaNac = request.form["fechaformateada"]
+    
     retorno = us.crearCuenta(nombres, apellidos, correo, pasw, fechaNac)
 
     return json.dumps(retorno)
