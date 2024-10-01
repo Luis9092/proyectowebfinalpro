@@ -325,11 +325,11 @@ function verresultado(textoextraido, textotraducido, palabras, traduccionpalabra
             });
         }
     });
-    PintarEntabla(datos);
-    console.log(datos);
-}
-function PintarEntabla(datos) {
     document.querySelector("#pintar").innerHTML = "";
+    PintarEntabla(datos);
+}
+
+function PintarEntabla(datos) {
 
     let cadena = "";
     datos.forEach(item => {

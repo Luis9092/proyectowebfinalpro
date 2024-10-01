@@ -131,7 +131,8 @@
 
 @media (max-width: 500px) {
   .container {
-    width: 94%;
+    width: 100% !important;
+    margin: 1rem 0 !important;
   }
   .swiper_inicio {
     height: 12rem;

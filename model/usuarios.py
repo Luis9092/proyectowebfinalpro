@@ -24,6 +24,8 @@ class Usuarios:
             return 0
         else:
             return 0
+        
+        
 
     def crearCuenta(self, nombres, apellidos, correo, pasw, fechaNacimiento):
         url = "https://repositorioprivado.onrender.com/crearUsuario"

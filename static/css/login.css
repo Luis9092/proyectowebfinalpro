@@ -116,13 +116,14 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-wrap: nowrap;
   margin: 5px;
   top: -6px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .logoEmpresa span {
-  font-size: 28px;
+  font-size: calc(18px + 0.390625vw);
   letter-spacing: 4px;
   font-weight: bold;
 }
@@ -189,7 +190,6 @@ input {
   border: 1px solid var(--border-color);
   padding: 5px;
   border-radius: 5px;
-
 }
 
 #fecha {
@@ -197,7 +197,6 @@ input {
   height: 100%;
   border: none;
   padding: 0 1rem;
-
 }
 
 .registrarse form .input-field .input-text input {
@@ -422,12 +421,6 @@ input {
 }
 
 @media (max-width: 570px) {
-  .registrarse {
-    padding: 4rem 0;
-    margin-top: 5rem;
-
-  }
-
   .image {
     display: none;
   }
@@ -448,5 +441,11 @@ input {
   .container:before {
     bottom: 80%;
     left: 50%;
+  }
+  .registrarse form .input-field {
+    width: 100% !important;
+  }
+  .inputfecha {
+    width: 100%;
   }
 }
