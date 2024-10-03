@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     {%include '/components/header.html' %}
-    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon"> 
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
 
     <title>Tomar Foto</title>
   </head>
@@ -13,7 +13,6 @@
       <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
 
       <div class="container contanedoranima">
-
         <div class="titulo">
           <span> <i class="bx bx-chevron-right"></i> </span>
           <h2>Mi perfil</h2>
@@ -52,10 +51,17 @@
             </div>
           </div>
           <input type="file" id="subirFotoPerfil" name="subirFotoPerfil" />
-          <button type="submit" id="btnAceptafoto" class="btnfinal botonanimacion" disabled>
+          <button
+            type="submit"
+            id="btnAceptafoto"
+            class="btnfinal botonanimacion"
+            disabled
+          >
             ActualizarFoto
           </button>
         </form>
+
+    
       </div>
     </div>
     {%include '/components/footer.html' %}

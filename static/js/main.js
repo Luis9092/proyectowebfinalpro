@@ -68,23 +68,14 @@ if (IniciarTraduccion) {
 async function initTodo(nuevoNombre) {
 
     const retorno1 = await uploadImage(nuevoNombre);
-
     if (retorno1 == 1) {
         const retorno2 = await IniciarScan(nuevoNombre, tamanio.value, formato.value, txtid12.value);
+        console.log(retorno2);
         if (retorno2 == 1) {
+            alertModal("#00dfdf", "Texto Traducido correctamente.", "success",)
 
-            let idioma = txtidiomas.value;
-            const retorno3 = await traducirImage(nuevoNombre, idioma);
-            if (retorno3 == 1) {
-                const retornoFin = await TraerData();
-                if (retornoFin == 1) {
-                    imgEscaneada.src = "https://repositorioprivado.onrender.com/fileEscaneado/" + nuevoNombre;
-                    imgTraducida.src = "https://repositorioprivado.onrender.com/fileTraducido/" + nuevoNombre;
-                    // obtenerImagenescaneada(nuevoNombre);
-                    // obtenerImagenesTraducida(nuevoNombre);
-                    descargarValores = 1;
-                }
-            }
+        } else {
+            alertModal("#ff0055", "Error al traducir texto:(", "error",)
         }
     }
 }
@@ -140,6 +131,7 @@ async function uploadImage(nuevoNombre) {
         formData.append('file', newFile); // Agrega la nueva imagen al FormData
 
         try {
+            // const response = await axios.post('http://127.0.0.1:8000/subirImagenServer', formData, {
             const response = await axios.post('https://repositorioprivado.onrender.com/subirImagenServer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -162,18 +154,34 @@ async function uploadImage(nuevoNombre) {
 
 async function IniciarScan(nuevoNombre, tamanio, formato, id) {
     retorno = 0;
+    alertModal("#00dfdf", "Escanendo imagen...", "success",);
 
     try {
         const response = await axios.post("https://repositorioprivado.onrender.com/IniciarScanImage", {
+            // const response = await axios.post("http://127.0.0.1:8000/IniciarScanImage", {
             id: "",
             idUser: String(id),
             nombre: String(nuevoNombre),
             tamanio: String(tamanio),
             formato: String(formato),
             fechaCreacion: "",
+            idiomatraducir: String(txtidiomas.value),
         });
-        alertModal("#00dfdf", "Escanendo imagen...", "success",)
 
+        console.log(response);
+
+        verresultado(response.data.textoextraido, response.data.textotraducido, response.data.palabras, response.data.traduccionpalabras, response.data.nopalabras);
+        idImagen = response.data.idimagen;
+        idiomaOrigen = response.data.idiomaorigen;
+        idiomaTraduccion = response.data.idiomatraduccion;
+
+        // imgEscaneada.src = "http://127.0.0.1:8000/fileEscaneado/" + nuevoNombre;
+        // imgTraducida.src = "http://127.0.0.1:8000/fileTraducido/" + nuevoNombre;
+        imgEscaneada.src = "https://repositorioprivado.onrender.com/fileEscaneado/" + nuevoNombre;
+        imgTraducida.src = "https://repositorioprivado.onrender.com/fileTraducido/" + nuevoNombre;
+        // obtenerImagenescaneada(nuevoNombre);
+        // obtenerImagenesTraducida(nuevoNombre);
+        descargarValores = 1;
         retorno = 1;
     } catch (e) {
         console.log(e);
@@ -383,7 +391,9 @@ function alertModal(color, mensaje, icon) {
 window.addEventListener('beforeunload', function (event) {
     if (NombresEliminar.length != 0) {
         NombresEliminar.forEach(element => {
+
             let url = "https://repositorioprivado.onrender.com/eliminaImage/" + element;
+            // let url = "http://127.0.0.1:8000/eliminaImage/" + element;
             eliminarRecurso(url);
         });
     }
@@ -393,6 +403,7 @@ const descargarImagenAr = document.querySelector("#descargarImagenAr");
 if (descargarImagenAr) {
     descargarImagenAr.addEventListener("click", () => {
         if (descargarValores == 1) {
+            // const url = `http://127.0.0.1:8000/IniciarScanImage/${nombreArreglado}`;
             const url = `https://repositorioprivado.onrender.com/descargarImagenEscaneado/${nombreArreglado}`;
             const retorno = descargarImagenMarcada(url, nombreArreglado);
             if (retorno == 1) {
@@ -406,6 +417,7 @@ const descargarImagenTraducida1 = document.querySelector("#descargarImagenTraduc
 if (descargarImagenTraducida1) {
     descargarImagenTraducida1.addEventListener("click", () => {
         if (descargarValores == 1) {
+            // const url = `http://127.0.0.1:8000/IniciarScanImage/${nombreArreglado}`;
             const url = `https://repositorioprivado.onrender.com/descargarImagenTraducido/${nombreArreglado}`;
             const retorno = descargarImagenMarcada(url, nombreArreglado);
             if (retorno == 1) {
@@ -481,7 +493,7 @@ function enviarImagenAFlask(blob) {
     const formData = new FormData();
     formData.append("imagen", blob, nombreArreglado);
     formData.append("idImagen", idImagen)
-    
+
     fetch("/subir_imagen", {
         method: "POST",
         body: formData,
@@ -640,3 +652,5 @@ window.onload = function () {
     const txtnombress = document.querySelector("#txtnombress").value;
     SaludoUsuario(txtnombress);
 }
+
+// EL ERROE ESTA EN FLUTTER

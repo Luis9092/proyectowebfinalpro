@@ -46,7 +46,7 @@ $("#tableusuarios").on("click", "tr td", function (evt) {
     pathimage = target.parent("tr").find("td").eq(9).html();
     idus1.value = id;
 
-   
+
 
     txtnombresus.value = nombres + " " + apellidos;
     txtcorreous.value = correo;
@@ -55,7 +55,7 @@ $("#tableusuarios").on("click", "tr td", function (evt) {
     txtfechanus.value = fechanacimiento;
     const edadretorno = calcularEdad(fechanacimiento);
     txtedad.value = edadretorno;
-    imagenusuariomodal.src = "static/imagenesusuariosPerfil/"+ pathimage;
+    imagenusuariomodal.src = "static/imagenesusuariosPerfil/" + pathimage;
     dialogUser.showModal();
 
 
@@ -80,7 +80,7 @@ const btnEliminarus = document.querySelector("#btnEliminarus");
 if (btnEliminarus) {
     btnEliminarus.addEventListener("click", (e) => {
         let value = e.target.value;
-      
+
         enviardataus(value);
     });
 }
@@ -90,7 +90,7 @@ const btnActualizarUser = document.querySelector("#btnActualizarUser");
 if (btnActualizarUser) {
     btnActualizarUser.addEventListener("click", (e) => {
         let value = e.target.value;
-   
+
         enviardataus(value);
     });
 }
@@ -137,4 +137,32 @@ function enviardataus(valores) {
         },
     });
 
+}
+
+const btnresetear = document.querySelector("#btnresetear")
+if (btnresetear) {
+    btnresetear.addEventListener("click", () => {
+        resetear();
+    });
+}
+
+async function resetear() {
+    retorno = 0;
+    try {
+        params = { nameimg: String(name) }
+        const response = await axios.get("https://repositorioprivado.onrender.com/eliminardatosCarpeta", {
+            params
+        });
+        console.log("textoTraducidondata ", response.data.id);
+
+        alertModal("#00dfdf", "Servidor reseteado correctamente!!", "success",)
+        retorno = response.data.id;
+
+    } catch (e) {
+        console.log(e);
+        // alertModal("#ff0055", "", "error",)
+
+        retorno = 0;
+    }
+    return retorno;
 }
