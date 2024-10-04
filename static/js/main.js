@@ -193,26 +193,26 @@ async function IniciarScan(nuevoNombre, tamanio, formato, id) {
 }
 
 
-async function traducirImage(name, idioma) {
-    retorno = 0;
-    try {
-        const response = await axios.post("https://repositorioprivado.onrender.com/traducirTextoImage", {
-            id: 0,
-            name_file: String(name),
-            idiomaTraducir: String(idioma)
-        });
-        // Aquí puedes manejar la respuesta si es necesario
-        alertModal("#00dfdf", "Texto traducido correctamente!!", "success",)
+// async function traducirImage(name, idioma) {
+//     retorno = 0;
+//     try {
+//         const response = await axios.post("https://repositorioprivado.onrender.com/traducirTextoImage", {
+//             id: 0,
+//             name_file: String(name),
+//             idiomaTraducir: String(idioma)
+//         });
+//         // Aquí puedes manejar la respuesta si es necesario
+//         alertModal("#00dfdf", "Texto traducido correctamente!!", "success",)
 
-        retorno = 1;
-    } catch (error) {
-        alertModal("#ff0055", "Error al traducir el texto.", "error",)
-        console.error("Error al traducir la imagen:", error);
-        retorno = 0;
-    }
+//         retorno = 1;
+//     } catch (error) {
+//         alertModal("#ff0055", "Error al traducir el texto.", "error",)
+//         console.error("Error al traducir la imagen:", error);
+//         retorno = 0;
+//     }
 
-    return retorno;
-}
+//     return retorno;
+// }
 
 async function traeridImagen(name) {
     retorno = 0;
@@ -339,18 +339,49 @@ function verresultado(textoextraido, textotraducido, palabras, traduccionpalabra
 
 function PintarEntabla(datos) {
 
-    let cadena = "";
-    datos.forEach(item => {
-        cadena += `
-        <tr>
-          <td>${item.no}</td>
-          <td>${item.palabra}</td>
-          <td>${item.traduccion}</td>
-        </tr>
-        `;
+    // let cadena = "";
+    // datos.forEach(item => {
+    //     cadena += `
+    //     <tr>
+    //       <td>${item.no}</td>
+    //       <td>${item.palabra}</td>
+    //       <td>${item.traduccion}</td>
+    //     </tr>
+    //     `;
+    // });
+
+
+    var tabla =  $("#tableResultadosArchivos").DataTable({
+        language: {
+          url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+        },
+        scrollY: true,
+        scrollX: true,
+      });
+
+      datos.forEach(function(item) {
+        tabla.row.add([
+            item.no,
+            item.palabra,
+            item.traduccion
+        ]).draw(false);
     });
-    document.querySelector("#pintar").innerHTML = cadena;
+
+
+
+
+    // document.querySelector("#pintar").innerHTML = cadena;
 }
+
+// $(document).ready(function () {
+//     $("#tableResultadosArchivos").DataTable({
+//       language: {
+//         url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+//       },
+//       scrollY: true,
+//       scrollX: true,
+//     });
+//   });
 
 
 async function eliminarRecurso(url) {

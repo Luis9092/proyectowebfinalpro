@@ -3,11 +3,11 @@
   --text-color: #000000;
   --sidebar-bg: #ffffff;
   --hover-color: #efefef;
-  --primaryColor: #35E3DE;
-  --morado-color: #be1fdb;
+  --primaryColor: #1bede6;
+  --morado-color: #e41bff;
   --celeste-color: #29caff;
-  --rojizo-color: #ff0055;
-  --verde-color: #30f5b0;
+  --rojizo-color: #ff266e;
+  --verde-color: #f5b330;
   --boxshadow-color: #d0d0d0;
   --text-shadow: 0 2px 2px #bcbcbc;
   --input-borderColor: #cecece;
@@ -124,7 +124,7 @@ a {
   box-shadow: 0 1px 8px var(--morado-color);
   background-color: var(--morado-color);
 }
-
+#p6 i,
 #p2 i {
   box-shadow: 0 1px 8px var(--celeste-color);
   background-color: var(--celeste-color);
@@ -139,7 +139,7 @@ a {
   box-shadow: 0 1px 8px var(--verde-color);
   background-color: var(--verde-color);
 }
-#p6 i,
+
 #p5 i {
   box-shadow: 0 1px 8px var(--primaryColor);
   background-color: var(--primaryColor);

@@ -179,7 +179,7 @@ hr {
   color: var(--celeste-color);
 }
 .colorRed {
-  color: var(--verde-color);
+  color: var(--morado-color);
 }
 .colorBlue {
   color: var(--fusiaColor);
@@ -190,7 +190,7 @@ hr {
 }
 
 .box-info li:nth-child(2) .bx {
-  background: var(--verde-color);
+  background: var(--morado-color);
 }
 
 .box-info li:nth-child(3) .bx {

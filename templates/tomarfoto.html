@@ -1,55 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     {%include '/components/header.html' %}
-    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon"> 
-
     <title>Tomar Foto</title>
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
   </head>
   <body>
     {% include '/components/menu.html' %}
 
     <div class="main-content">
-      <input type="hidden" id="txtid12foto" value='{{session["id"]}}' />
+      <input type="hidden" id="txtid12" value='{{session["id"]}}' />
       <input type="hidden" id="emailuser" value='{{session["correo"]}}' />
 
       <div class="container contanedoranima">
-        <!-- <div id="loader" class="loader" style="display: none"></div> -->
+        <div id="loader" class="loader" style="display: none"></div>
 
         <div class="titulo">
-          <span> <i class="bx bx-chevron-right"></i> </span>
+          <span> <i class="bx bx-chevrons-right"></i> </span>
           <h2>Tomar Foto</h2>
         </div>
 
-        <input type="hidden" name="tamaniofoto" id="tamaniofoto" />
-        <input type="hidden" name="formatofoto" id="formatofoto" />
+        <input type="hidden" name="tamanio" id="tamanio" />
+        <input type="hidden" name="formato" id="formato" />
         <div class="containerelegir">
-          <video style="display: none" id="video" autoplay></video>
-          <div class="buttonsVideo">
-            <button id="capturar">Capturar Imagen</button>
-            <button id="encenderApagar">Encender Cámara</button>
-          </div>
-
-          <canvas id="canvas"></canvas>
+          <input id="txtfile" type="file" capture="txtfile" accept="image/*" />
         </div>
         <div class="imgcontainer">
-          <img
-            id="imagenCapturada"
-            src="/static/img/imagen_mejorada.png"
-            alt=""
-          />
+          <img id="img1" src="/static/img/imagen_mejorada.png" alt="" />
         </div>
         <div class="elegircontainer">
-          <select name="txtidiomasfoto" id="txtidiomasfoto"></select>
-          <button type="button" id="IniciarTraduccionfoto" disabled>
-            Iniciar Scan
-          </button>
+          <select name="txtidiomas" id="txtidiomas"></select>
+          <button class="botonanimacion" type="button" id="IniciarTraduccion">Iniciar Scan</button>
         </div>
         <div class="imgcontainer">
           <img
-            id="imgEscaneadafoto"
-            src="/static/img/imagen_mejorada.png"
-            alt=""
+            id="imgEscaneada"
+            src="/static/img/2335pruebafin1.jpeg"
+            alt="Imagen Escaneada"
             crossorigin="anonymous"
           />
           <div class="detailImage">
@@ -72,9 +59,9 @@
         </div>
         <div class="imgcontainer">
           <img
-            id="imgTraducidafoto"
-            src="/static/img/imagenmarcada.png"
-            alt=""
+            id="imgTraducida"
+            src="/static/img/2335pruebafin1 (1).jpeg"
+            alt="Imagen Traducida"
             crossorigin="anonymous"
           />
           <div class="detailImage">
@@ -98,18 +85,18 @@
         <div class="tableResultados">
           <div class="containerTexto">
             <span>Texto</span>
-            <p id="textofoto">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Provident, harum tempora! Optio eos laborum modi reprehenderit,
-              aperiam cumque doloribus molestiae sint reiciendis, velit ut vero
-              fugit quia cum aspernatur non!
+            <p id="texto">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              nisi, corporis sed cumque, exercitationem, unde fuga totam earum
+              quo voluptatum quos incidunt asperiores eius temporibus facere
+              sunt esse nobis. Consectetur?
             </p>
             <span>Traduccion</span>
-            <p id="traduccionfoto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus magni ad adipisci. Id doloribus quos ab deserunt
-              explicabo. Est quam ullam dicta necessitatibus id esse delectus
-              temporibus! Quo, provident possimus?
+            <p id="traduccion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+              veritatis magnam distinctio minima porro dolore omnis! Dolores
+              dignissimos quibusdam dicta nisi sapiente cupiditate cumque
+              minima, voluptates labore! Itaque, voluptatum vel?
             </p>
             <div class="guardar">
               <span>Descargar Como</span>
@@ -128,9 +115,9 @@
 
           <div class="tituloResultado">
             <h5>Resultados</h5>
-            <h6 id="noPalabrasfoto">22 palabras</h6>
+            <h6 id="noPalabras">22 palabras</h6>
           </div>
-          <table>
+          <table id="tableResultadosArchivos" class="display row-border">
             <thead>
               <tr>
                 <td>No Palabra</td>
@@ -138,21 +125,24 @@
                 <td>Traduccion</td>
               </tr>
             </thead>
-            <tbody id="pintarfoto"></tbody>
+            <tbody id="pintar"></tbody>
           </table>
         </div>
       </div>
     </div>
+
     <script>
-      const txtidiomasfoto12 = document.querySelector("#txtidiomasfoto");
-      SelectDynamic2(
-        txtidiomasfoto12,
+    
+
+      const txtidiomas12 = document.querySelector("#txtidiomas");
+      SelectDynamic(
+        txtidiomas12,
         "https://repositorioprivado.onrender.com/verIdiomas",
         "abreviacion",
         "nombreIdioma"
       );
 
-      function SelectDynamic2(input, url, id, valor) {
+      function SelectDynamic(input, url, id, valor) {
         axios.get(url, {}).then(function (response) {
           Object.entries(response.data).forEach(([key, value]) => {
             input.innerHTML +=
