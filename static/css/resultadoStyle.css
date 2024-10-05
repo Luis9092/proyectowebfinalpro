@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 12px;
   padding: 12px;
 }
@@ -25,14 +25,14 @@
   cursor: pointer;
 }
 
-.modal span,
+.modalre span,
 .gridresultado .foto button i {
   font-size: 1rem;
   color: var(--text-color);
   text-shadow: var(--text-shadow);
 }
 
-.modal span:hover,
+.modalre span:hover,
 .gridresultado .foto .eliminar i:hover {
   color: var(--primaryColor);
 }
@@ -55,7 +55,7 @@
   color: red;
 }
 
-.modal {
+.modalre {
   display: none;
   position: fixed;
   z-index: 1;
@@ -65,28 +65,25 @@
   height: 100%;
   overflow: auto;
   background-color: var(--sidebar-bg);
-
 }
-.modal img {
+.modalre img {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: min-content;
+  height: auto;
   padding: 0 8rem;
   margin: auto;
 }
 
-
-.modal-content {
+.modal-contentre {
   /* margin: auto; */
   width: 80%;
   height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .close {
   position: absolute;
@@ -98,11 +95,15 @@
   cursor: pointer;
 }
 
-
 @media (max-width: 500px) {
-  .modal img {
-  padding: 0;
-  
-
+  /* .modal img {
+    padding: 0;
+    margin: 0;
+  } */
+  .gridresultado {
+    padding: 0;
+  }
+  .modalre img {
+    padding: 0;
   }
 }
