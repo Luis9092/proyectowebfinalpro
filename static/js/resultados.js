@@ -4,7 +4,7 @@ for (const item of miresultado) {
     item.addEventListener("click", (e) => {
         let target = e.target;
         let id = target.id;
-        console.log(id);
+        
         
         const imagen = document.getElementById(id);
         const modal = document.getElementById('miModal');
@@ -36,7 +36,7 @@ for (const element of eliminarImagenre) {
     element.addEventListener("click", (e) => {
         let id = element.value;
 
-        console.log(id);
+    
 
         enviaradataeliminar(id);
     });
@@ -48,8 +48,7 @@ function enviaradataeliminar(id) {
     const nombrearchivo = document.querySelector(`#nombreArchivo${id}`);
     const idimagen = document.querySelector(`#idImagen21${id}`);
 
-    console.log(nombrearchivo.value);
-    console.log(idimagen.value);
+ 
 
     $.ajax({
         type: formEliminarArhivoUser.attr("method"),
@@ -60,7 +59,7 @@ function enviaradataeliminar(id) {
         },
         success: function (response) {
             const respuesta = JSON.parse(response);
-            console.log(respuesta.estado);
+       
 
             if (respuesta.estado == 0) {
                 Swal.fire({

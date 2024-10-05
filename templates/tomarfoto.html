@@ -6,7 +6,8 @@
     <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
   </head>
   <body>
-    {% include '/components/menu.html' %}
+    {% include '/components/menu.html' %} {% include
+    '/components/modalAyuda.html' %}
 
     <div class="main-content">
       <input type="hidden" id="txtid12" value='{{session["id"]}}' />
@@ -30,7 +31,9 @@
         </div>
         <div class="elegircontainer">
           <select name="txtidiomas" id="txtidiomas"></select>
-          <button class="botonanimacion" type="button" id="IniciarTraduccion">Iniciar Scan</button>
+          <button class="botonanimacion" type="button" id="IniciarTraduccion">
+            Iniciar Scan
+          </button>
         </div>
         <div class="imgcontainer">
           <img
@@ -129,11 +132,10 @@
           </table>
         </div>
       </div>
+      {% include '/components/botonFlotante.html' %}
     </div>
 
     <script>
-    
-
       const txtidiomas12 = document.querySelector("#txtidiomas");
       SelectDynamic(
         txtidiomas12,

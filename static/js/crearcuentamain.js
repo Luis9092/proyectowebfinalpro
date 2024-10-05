@@ -82,7 +82,7 @@ txtapellidos.addEventListener("input", (e) => validatefieldName(e));
 
 function formatearFecha(e) {
   const fechaInput = e.target.value;
-  console.log(fechaInput);
+   
   let formato = "dd/mm/yyyy"
 
   const fechaObj = new Date(fechaInput);

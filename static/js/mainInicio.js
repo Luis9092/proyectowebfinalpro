@@ -3,11 +3,11 @@ var swiper = new Swiper(".swiper_inicio", {
     loop: true,
     effect: "fade",
     pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+        el: ".swiper-pagination",
+        clickable: true,
     },
     autoplay: {
-        delay: 1500,
+        delay: 4500,
         disableOnInteraction: false,
     },
     navigation: {

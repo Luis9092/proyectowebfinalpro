@@ -14,7 +14,7 @@ from model.mantenimientUsuario import MantenimientoUsuario
 app = Flask(__name__)
 app.secret_key = "luiscasas12345"
 
-
+# ULTIMA MODIFICACION ANTES DE TERMINA EL DIA 10 DE OCTUBRE DE 2024
 @app.route("/")
 def root():
     return render_template("login.html")
@@ -165,8 +165,7 @@ def eliminarResultadosUser():
     idimagen = request.form.get("idimagen")
     nameimagen = request.form.get("nameimagen")
     api_url = f"https://repositorioprivado.onrender.com/eliminarArchivoUser/{idimagen}/{nameimagen}"
-    print(idimagen)
-    print(nameimagen)
+ 
 
     alerta = {}
     try:
@@ -292,7 +291,7 @@ def usuarioAdministrar():
     id = request.form.get("id")
     estado = request.form.get("estado")
     ma = MantenimientoUsuario()
-    print("valor ", valor)
+    
     respuesta = {"mensaje": "Error al ejecutar los procesos.", "estado": 0}
 
     if valor == "eliminar":

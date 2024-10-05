@@ -233,7 +233,7 @@ async function traeridImagenfoto(name) {
         const response = await axios.get("http://127.0.0.1:8000/obtneridImage/<nameimg>", {
             params
         });
-        console.log("textoTraducidondata ", response.data.id);
+        
 
         retorno = response.data.id;
     } catch (e) {
@@ -249,7 +249,7 @@ async function TraerDatafoto() {
     try {
         const response = await axios.get("http://127.0.0.1:8000/ObtenerDataImagen", {
         });
-        console.log("textoTraducidondata ", response.data.traduccionpalabras);
+      
 
         verresultadofoto(response.data.textoextraido, response.data.textotraducido, response.data.palabras, response.data.traduccionpalabras, response.data.nopalabras);
         retorno = 1;
@@ -282,7 +282,7 @@ function verresultadofoto(textoextraido, textotraducido, palabras, traduccionpal
         }
     });
     PintarEntablafoto(datos);
-    console.log(datos);
+   
 }
 function PintarEntablafoto(datos) {
     document.querySelector("#pintarfoto").innerHTML = "";
@@ -304,7 +304,7 @@ function PintarEntablafoto(datos) {
 async function eliminarRecursofoto(url) {
     try {
         const response = await axios.delete(url);
-        console.log('Recurso eliminado:', response.data);
+      
     } catch (error) {
         console.error('Error al eliminar el recurso:', error);
     }

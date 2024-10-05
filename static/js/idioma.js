@@ -16,7 +16,7 @@ function validarInputs() {
     let txtprefij = txtprefijo.value;
     let retorno = 0;
     if (validarTexto(txtidiom) && validarTexto(txtprefij)) {
-        console.log("El input es válido.");
+        
         retorno = 1;
     } else {
         console.log("Porfavor llenar el formulario.");
@@ -29,7 +29,7 @@ if (btnCrearIdioma) {
     btnCrearIdioma.addEventListener("click", (e) => {
         const retorno = validarInputs();
         let value = e.target.value;
-        console.log(retorno);
+      
         if (retorno == 1) {
             alertModal("#00dfdf", "Texto Validado correctamente", "success",);
             enviaradatacrearidioma(value);
@@ -45,7 +45,7 @@ if (btnEliminar) {
     btnEliminar.addEventListener("click", (e) => {
         const retorno = validarInputs();
         let value = e.target.value;
-        console.log(retorno);
+      
         if (retorno == 1) {
             alertModal("#00dfdf", "Texto Validado correctamente", "success",);
             enviaradatacrearidioma(value);
@@ -61,7 +61,7 @@ if (btnActualizar) {
     btnActualizar.addEventListener("click", (e) => {
         const retorno = validarInputs();
         let value = e.target.value;
-        console.log(retorno);
+       
         if (retorno == 1) {
             alertModal("#00dfdf", "Texto Validado correctamente", "success",);
             enviaradatacrearidioma(value);
@@ -86,7 +86,7 @@ function enviaradatacrearidioma(valores) {
         },
         success: function (response) {
             const respuesta = JSON.parse(response);
-            console.log(respuesta.estado);
+            
 
             if (respuesta.estado == 0) {
                 Swal.fire({

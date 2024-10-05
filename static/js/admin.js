@@ -153,7 +153,7 @@ async function resetear() {
         const response = await axios.get("https://repositorioprivado.onrender.com/eliminardatosCarpeta", {
             params
         });
-        console.log("textoTraducidondata ", response.data.id);
+       
 
         alertModal("#00dfdf", "Servidor reseteado correctamente!!", "success",)
         retorno = response.data.id;

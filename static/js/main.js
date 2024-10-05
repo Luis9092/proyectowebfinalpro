@@ -70,7 +70,7 @@ async function initTodo(nuevoNombre) {
     const retorno1 = await uploadImage(nuevoNombre);
     if (retorno1 == 1) {
         const retorno2 = await IniciarScan(nuevoNombre, tamanio.value, formato.value, txtid12.value);
-        console.log(retorno2);
+        
         if (retorno2 == 1) {
             alertModal("#00dfdf", "Texto Traducido correctamente.", "success",)
 
@@ -168,7 +168,7 @@ async function IniciarScan(nuevoNombre, tamanio, formato, id) {
             idiomatraducir: String(txtidiomas.value),
         });
 
-        console.log(response);
+     
 
         verresultado(response.data.textoextraido, response.data.textotraducido, response.data.palabras, response.data.traduccionpalabras, response.data.nopalabras);
         idImagen = response.data.idimagen;
@@ -278,8 +278,7 @@ if (txtfile) {
                 tamanio.value = `${info.tamanio.ancho}x${info.tamanio.alto} píxeles`;
                 formato.value = info.formato;
 
-                console.log(`Tamaño: ${info.tamanio.ancho}x${info.tamanio.alto} píxeles`);
-                console.log(`Formato: ${info.formato}`);
+              
             })
             .catch(error => {
                 console.error('Error:', error.message);
@@ -351,15 +350,15 @@ function PintarEntabla(datos) {
     // });
 
 
-    var tabla =  $("#tableResultadosArchivos").DataTable({
+    var tabla = $("#tableResultadosArchivos").DataTable({
         language: {
-          url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+            url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
         },
         scrollY: true,
         scrollX: true,
-      });
+    });
 
-      datos.forEach(function(item) {
+    datos.forEach(function (item) {
         tabla.row.add([
             item.no,
             item.palabra,

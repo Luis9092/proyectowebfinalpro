@@ -2,32 +2,43 @@
 <html lang="es">
   <head>
     {%include '/components/header.html' %}
-    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon"> 
+    <link rel="icon" href="/static/img/logo1.ico" type="image/x-icon" />
 
     <title>Inicio</title>
   </head>
   <body>
-    {% include '/components/menu.html' %}
+    {% include
+    '/components/menu.html' %}
+    {% include '/components/modalAyuda.html' %}
+
     <div class="swiper_inicio">
       <div class="swiper-wrapper">
         <div class="swiper-slide slide1">
           <div class="text_slide">
-            <h2 class="swipe_title text-pop-up-right">"De imagen a idioma: la traducción simplificada."</h2>
+            <h2 class="swipe_title text-pop-up-right">
+              "De imagen a idioma: la traducción simplificada."
+            </h2>
           </div>
         </div>
         <div class="swiper-slide slide2">
           <div class="text_slide">
-            <h2 class="swipe_title text-pop-up-right">"Transforma imágenes en palabras: traduce fácil."</h2>
+            <h2 class="swipe_title text-pop-up-right">
+              "Transforma imágenes en palabras: traduce fácil."
+            </h2>
           </div>
         </div>
         <div class="swiper-slide slide3">
           <div class="text_slide">
-            <h2 class="swipe_title text-pop-up-right">"Escanea, traduce y comprende al instante."</h2>
+            <h2 class="swipe_title text-pop-up-right">
+              "Escanea, traduce y comprende al instante."
+            </h2>
           </div>
         </div>
         <div class="swiper-slide slide4">
           <div class="text_slide">
-            <h2 class="swipe_title text-pop-up-right">"Captura texto, traduce sin esfuerzo."</h2>
+            <h2 class="swipe_title text-pop-up-right">
+              "Captura texto, traduce sin esfuerzo."
+            </h2>
           </div>
         </div>
       </div>
@@ -57,10 +68,13 @@
           barreras.
         </p>
         <img src="/static/img/wel1.svg" alt="home" />
-        <h2 class="text-pop-up-right">¡Comienza tu viaje de traducción ahora!</h2>
+        <h2 class="text-pop-up-right">
+          ¡Comienza tu viaje de traducción ahora!
+        </h2>
         <a href="#" class="btnIniciar botonanimacion">Iniciar</a>
       </div>
 
+      {% include '/components/botonFlotante.html' %}
     </div>
 
     {% include '/components/footer.html' %}

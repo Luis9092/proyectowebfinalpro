@@ -61,7 +61,7 @@ function EnviarformPerfil() {
             contentType: false,
             success: function (response) {
                 const respuesta = JSON.parse(response);
-                console.log(respuesta.estado);
+               
 
                 if (respuesta.estado == 0) {
                     Swal.fire({
